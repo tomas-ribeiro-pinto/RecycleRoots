@@ -3,7 +3,22 @@ import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 
 /** @type {import('tailwindcss').Config} */
-export default {
+
+const defaultColors = require('tailwindcss/colors')
+
+const colors = {
+    ...defaultColors,
+    ...{
+        'r_green': {
+            100: '#77bb3f',
+            200: '#006a35',
+        },
+        'r_orange' : '#ff8f38',
+        'r_white' : '#f2f2f2'
+    },
+}
+
+module.exports = {
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './vendor/laravel/jetstream/**/*.blade.php',
@@ -12,9 +27,10 @@ export default {
     ],
 
     theme: {
+        colors: colors,
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Rubik', ...defaultTheme.fontFamily.sans],
             },
         },
     },
