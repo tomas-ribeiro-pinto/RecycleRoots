@@ -1,6 +1,6 @@
 <nav x-data="{ open: false }" class="bg-black border-b border-gray-100">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -19,6 +19,13 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <a href="{{route('home')}}" target="_blank" rel="noopener noreferrer" class="text-white text-sm hover:underline hover:text-gray-300">
+                    Visit website
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 inline my-auto">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                    </svg>
+
+                </a>
                 <!-- Settings Dropdown -->
                 <div class="ms-3 relative">
                     <x-dropdown align="right" width="48">
@@ -59,7 +66,7 @@
                             <div class="border-t border-gray-200"></div>
 
                             <!-- Teams Dropdown -->
-                            <div class="w-60">
+                            <div>
                                 <!-- Team Management -->
                                 <div class="block px-4 py-2 text-xs text-gray-400">
                                     {{ __('Manage Team') }}
@@ -70,24 +77,24 @@
                                     {{ __('Team Settings') }}
                                 </x-dropdown-link>
 
-                                @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                                    <x-dropdown-link href="{{ route('teams.create') }}">
-                                        {{ __('Create New Team') }}
-                                    </x-dropdown-link>
-                                @endcan
+{{--                                @can('create', Laravel\Jetstream\Jetstream::newTeamModel())--}}
+{{--                                    <x-dropdown-link href="{{ route('teams.create') }}">--}}
+{{--                                        {{ __('Create New Team') }}--}}
+{{--                                    </x-dropdown-link>--}}
+{{--                                @endcan--}}
 
-                                <!-- Team Switcher -->
-                                @if (Auth::user()->allTeams()->count() > 1)
-                                    <div class="border-t border-gray-200"></div>
+{{--                                <!-- Team Switcher -->--}}
+{{--                                @if (Auth::user()->allTeams()->count() > 1)--}}
+{{--                                    <div class="border-t border-gray-200"></div>--}}
 
-                                    <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Switch Teams') }}
-                                    </div>
+{{--                                    <div class="block px-4 py-2 text-xs text-gray-400">--}}
+{{--                                        {{ __('Switch Teams') }}--}}
+{{--                                    </div>--}}
 
-                                    @foreach (Auth::user()->allTeams() as $team)
-                                        <x-switchable-team :team="$team" />
-                                    @endforeach
-                                @endif
+{{--                                    @foreach (Auth::user()->allTeams() as $team)--}}
+{{--                                        <x-switchable-team :team="$team" />--}}
+{{--                                    @endforeach--}}
+{{--                                @endif--}}
                             </div>
 
                             <div class="border-t border-gray-200"></div>
@@ -177,24 +184,24 @@
                         {{ __('Team Settings') }}
                     </x-responsive-admin-nav-link>
 
-                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                        <x-responsive-admin-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">
-                            {{ __('Create New Team') }}
-                        </x-responsive-admin-nav-link>
-                    @endcan
+{{--                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())--}}
+{{--                        <x-responsive-admin-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">--}}
+{{--                            {{ __('Create New Team') }}--}}
+{{--                        </x-responsive-admin-nav-link>--}}
+{{--                    @endcan--}}
 
-                    <!-- Team Switcher -->
-                    @if (Auth::user()->allTeams()->count() > 1)
-                        <div class="border-t border-gray-200"></div>
+{{--                    <!-- Team Switcher -->--}}
+{{--                    @if (Auth::user()->allTeams()->count() > 1)--}}
+{{--                        <div class="border-t border-gray-200"></div>--}}
 
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Switch Teams') }}
-                        </div>
+{{--                        <div class="block px-4 py-2 text-xs text-gray-400">--}}
+{{--                            {{ __('Switch Teams') }}--}}
+{{--                        </div>--}}
 
-                        @foreach (Auth::user()->allTeams() as $team)
-                            <x-switchable-team :team="$team" component="responsive-nav-link" />
-                        @endforeach
-                    @endif
+{{--                        @foreach (Auth::user()->allTeams() as $team)--}}
+{{--                            <x-switchable-team :team="$team" component="responsive-nav-link" />--}}
+{{--                        @endforeach--}}
+{{--                    @endif--}}
                 @endif
             </div>
         </div>

@@ -23,6 +23,7 @@ Route::get('/blog', function () {
 
 Route::middleware([
     'auth:sanctum',
+    'hasTeam',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {

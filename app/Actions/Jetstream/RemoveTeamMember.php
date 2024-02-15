@@ -2,10 +2,12 @@
 
 namespace App\Actions\Jetstream;
 
+use App\Mail\TeamRemovedUser;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use Laravel\Jetstream\Contracts\RemovesTeamMembers;
 use Laravel\Jetstream\Events\TeamMemberRemoved;
@@ -24,6 +26,9 @@ class RemoveTeamMember implements RemovesTeamMembers
         $team->removeUser($teamMember);
 
         TeamMemberRemoved::dispatch($team, $teamMember);
+
+        Mail::to($teamMember->email)->send(new TeamRemovedUser($teamMember, $team));
+        (new DeleteUser(new DeleteTeam()))->delete($teamMember);
     }
 
     /**
