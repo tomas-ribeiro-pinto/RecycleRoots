@@ -9,7 +9,7 @@
                             <div class="m-auto pr-2 border-r border-gray-400">
                                 <x-search-icon class="w-6 h-6 text-r_green-100"/>
                             </div>
-                            <input type="search" name="search" id="search" class="truncate block w-full border-0 text-gray-900 placeholder:text-gray-700 sm:text-md sm:leading-6 focus:border-gray-400 focus:ring-0" placeholder="Search for an item to recycle in your area" required>
+                            <input type="search" name="search" id="search" class="truncate block w-full border-0 text-gray-900 placeholder:text-gray-700 sm:text-md sm:leading-6 focus:border-gray-400 focus:ring-0" placeholder="Search for an item to recycle" required>
                         </div>
                     </div>
                     <div class="lg:absolute lg:right-0 mt-2 lg:mt-0 bg-white flex p-4 rounded-xl border-2 border-r_green-100 shadow-sm">

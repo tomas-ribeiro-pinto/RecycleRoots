@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Jetstream routes
+require __DIR__ . '/jetstream.php';
+// Auth routes by jetstream
+require __DIR__ . '/auth/routes.php';
+// Admin routes
+require __DIR__ . '/admin/routes.php';
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,14 +27,3 @@ Route::get('/', function () {
 Route::get('/blog', function () {
     return view('blog');
 })->name('blog');
-
-Route::middleware([
-    'auth:sanctum',
-    'hasTeam',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});

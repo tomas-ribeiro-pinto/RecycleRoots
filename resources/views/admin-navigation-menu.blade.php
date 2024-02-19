@@ -100,7 +100,7 @@
                             <div class="border-t border-gray-200"></div>
 
 
-                            <!-- Authentication -->
+                            <!-- auth -->
                             <form method="POST" action="{{ route('logout') }}" x-data>
                                 @csrf
 
@@ -161,7 +161,7 @@
                     </x-responsive-admin-nav-link>
                 @endif
 
-                <!-- Authentication -->
+                <!-- auth -->
                 <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
 

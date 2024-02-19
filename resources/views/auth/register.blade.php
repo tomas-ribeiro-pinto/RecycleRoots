@@ -1,3 +1,10 @@
+@php
+ use \App\Models\TeamInvitation;
+ $invitation = TeamInvitation::find(app('request')->input('invitation'));
+ if ($invitation == null) {
+     abort(404);
+ }
+@endphp
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
@@ -16,7 +23,7 @@
 
             <div class="mt-4">
                 <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{$invitation->email}}" required :readonly="true"/>
             </div>
 
             <div class="mt-4">

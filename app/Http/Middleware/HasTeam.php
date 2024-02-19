@@ -35,7 +35,7 @@ class HasTeam
                     __('Great! You have accepted the invitation to join the :team team.', ['team' => $invitation->team->name]),
                 );
             }else{
-                return Response(view('no-team'));
+                return abort(403);
             }
         }
 
