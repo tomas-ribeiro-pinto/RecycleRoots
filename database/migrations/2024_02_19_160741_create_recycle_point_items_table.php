@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('recycle_point_items', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('recycle_point_id')->constrained();
+            $table->foreignId('item_id')->constrained();
             $table->timestamps();
         });
     }

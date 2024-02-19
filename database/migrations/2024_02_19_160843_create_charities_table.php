@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('charities', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->string('website');
+            $table->string('phone');
+            $table->string('charity_registration');
+            $table->text('description');
             $table->timestamps();
         });
     }

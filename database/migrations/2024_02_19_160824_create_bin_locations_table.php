@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('bin_locations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('bin_id')->constrained();
+            $table->string('postcode');
             $table->timestamps();
         });
     }

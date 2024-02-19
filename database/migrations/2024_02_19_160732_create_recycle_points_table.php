@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('recycle_points', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('address');
+            $table->string('lat');
+            $table->string('lng');
+            $table->string('managed_by');
+            $table->text('description');
+            $table->string('website');
             $table->timestamps();
         });
     }

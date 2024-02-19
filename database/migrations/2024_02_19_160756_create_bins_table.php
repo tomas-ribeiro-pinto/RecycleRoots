@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('bins', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('colour');
+            $table->string('dimensions');
+            $table->boolean('is_template');
             $table->timestamps();
         });
     }

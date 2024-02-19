@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('bin_item_types', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('bin_id')->constrained();
+            $table->foreignId('item_type_id')->constrained();
             $table->timestamps();
         });
     }

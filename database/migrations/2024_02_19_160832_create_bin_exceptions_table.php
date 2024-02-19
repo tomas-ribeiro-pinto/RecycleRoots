@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('bin_exceptions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('bin_location_id')->constrained();
+            $table->foreignId('item_id')->constrained();
+            $table->enum('exception_rule', ['add', 'remove']);
             $table->timestamps();
         });
     }
