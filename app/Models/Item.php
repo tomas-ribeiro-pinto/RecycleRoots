@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function recyclePoints()
+    {
+        return $this->belongsToMany(RecyclePoint::class);
+    }
+
+    public function itemType()
+    {
+        return $this->belongsTo(ItemType::class);
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\TeamInvitationController;
+use App\Http\Controllers\ModelControllers\TeamInvitationController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;

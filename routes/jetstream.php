@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\TeamInvitationController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\Livewire\ApiTokenController;
 use Laravel\Jetstream\Http\Controllers\Livewire\PrivacyPolicyController;

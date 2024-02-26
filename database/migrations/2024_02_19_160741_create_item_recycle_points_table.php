@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bin_exceptions', function (Blueprint $table) {
+        Schema::create('item_recycle_points', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bin_location_id')
+            $table->foreignId('recycle_point_id')
                 ->constrained()
-                ->onDelete('cascade')
+                ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreignId('item_id')->constrained();
-            $table->enum('exception_rule', ['add', 'remove']);
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bin_exceptions');
+        Schema::dropIfExists('item_recycle_points');
     }
 };

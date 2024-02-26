@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SearchResultController;
 use Illuminate\Support\Facades\Route;
 
 // Jetstream routes
@@ -20,9 +22,8 @@ require __DIR__ . '/admin/routes.php';
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::post('/search', [SearchResultController::class, 'index']);
 
 Route::get('/blog', function () {
     return view('blog');
