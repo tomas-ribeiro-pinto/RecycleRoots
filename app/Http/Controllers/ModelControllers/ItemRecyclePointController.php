@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ModelControllers;
 
 use App\Http\Controllers\Controller;
 
-class RecyclePointItemController extends Controller
+class ItemRecyclePointController extends Controller
 {
     //
 }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('lat');
             $table->string('lng');
             $table->string('managed_by');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('website');
             $table->timestamps();
         });

@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category_posts', function (Blueprint $table) {
+        Schema::create('item_recycle_point', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('recycle_point_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('item_id')->constrained();
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category_posts');
+        Schema::dropIfExists('item_recycle_point');
     }
 };
