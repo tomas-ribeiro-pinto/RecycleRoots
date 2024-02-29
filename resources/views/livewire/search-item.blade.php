@@ -17,6 +17,7 @@
                                 wire:keydown.escape="resetQuery"
                                 wire:keydown.arrow-up="decrementHighlight"
                                 wire:keydown.arrow-down="incrementHighlight"
+                                wire:keydown.tab="selectItemFromList"
                                 required/>
 
                         <div class="flex relative">

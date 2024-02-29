@@ -38,7 +38,7 @@ class SearchItem extends Component
         }
         $this->selectedItem = -1;
         $this->items = Item::where('name', 'like', '%'.$this->query.'%')
-            ->take(5)
+            ->take(6)
             ->get()
             ->toArray();
     }
@@ -69,5 +69,10 @@ class SearchItem extends Component
             return;
         }
         $this->highlightIndex--;
+    }
+
+    public function selectItemFromList()
+    {
+        $this->selectItem($this->items[$this->highlightIndex]['id']);
     }
 }

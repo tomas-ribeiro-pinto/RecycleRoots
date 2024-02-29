@@ -23,6 +23,9 @@ require __DIR__ . '/admin/routes.php';
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/map', function () {
+    return view('recycling-centre-map');
+})->name('map');
 Route::post('/search', [SearchResultController::class, 'index']);
 
 Route::get('/blog', function () {
