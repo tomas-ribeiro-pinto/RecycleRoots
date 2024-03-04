@@ -11,22 +11,26 @@
     <div class="py-10 justify-center items-center bg-r_green-100" style="margin-top: -17em;">
         <br>
         <div class="grid grid-cols-2 gap-10 p-4 pt-10 max-w-5xl mx-auto">
-            <x-app-card class="bg-white max-w-6xl">
+            <x-app-card class="bg-white max-w-6xl px-10 py-8">
                 <x-slot name="title">
-                    <h1 class="mt-2 font-medium text-xl">Find your closest recycling centre</h1>
+                    <h1 class="font-medium text-xl mb-6">Find your closest recycling centre</h1>
                 </x-slot>
                 <x-slot name="slot">
-                    <x-postcode-search action="/recycling"/>
+                    <x-postcode-search method="GET" action="{{route('recycle-point-map')}}"/>
                 </x-slot>
             </x-app-card>
-            <x-app-card class="bg-white">
+            <x-app-card class="bg-white px-10 py-8">
                 <x-slot name="title">
-                    <h1 class="font-medium text-xl">Check your next bin collection date</h1>
+                    <h1 class="font-medium text-xl mb-6">Check your next bin collection date</h1>
                 </x-slot>
                 <x-slot name="slot">
-                    <x-postcode-search action="/collection"/>
+                    <x-postcode-search method="POST" action="/collection"/>
                 </x-slot>
             </x-app-card>
+        </div>
+
+        <div class="mt-16">
+            <x-blog-home-section/>
         </div>
     </div>
 </x-app-layout>

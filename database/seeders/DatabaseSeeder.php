@@ -55,6 +55,7 @@ class DatabaseSeeder extends Seeder
                 'lat' => '51.60488600747863',
                 'lng' => '-0.7956837840719871',
                 'managed_by' => 'Buckinghamshire Council',
+                'team_id' => $team->id,
                 'website' => 'https://www.buckinghamshire.gov.uk/waste-and-recycling/household-recycling-centres-permits-and-waste-facilities/find-your-nearest-household-recycling-centre/high-wycombe-recycling-centre/'
             ]),
             new RecyclePoint([
@@ -63,6 +64,7 @@ class DatabaseSeeder extends Seeder
                 'lat' => '51.59804057602368',
                 'lng' => '-0.6135969764040702',
                 'managed_by' => 'Buckinghamshire Council',
+                'team_id' => $team->id,
                 'website' => 'https://www.buckinghamshire.gov.uk/waste-and-recycling/household-recycling-centres-permits-and-waste-facilities/find-your-nearest-household-recycling-centre/beaconsfield-recycling-centre/'
             ]),
             new RecyclePoint([
@@ -71,6 +73,7 @@ class DatabaseSeeder extends Seeder
                 'lat' => '51.54335853433586',
                 'lng' => '-0.6366802989734986',
                 'managed_by' => 'Buckinghamshire Council',
+                'team_id' => $team->id,
                 'website' => 'https://www.buckinghamshire.gov.uk/waste-and-recycling/household-recycling-centres-permits-and-waste-facilities/find-your-nearest-household-recycling-centre/burnham-recycling-centre/'
             ]),
             new RecyclePoint([
@@ -79,6 +82,7 @@ class DatabaseSeeder extends Seeder
                 'lat' => '51.65333021208072',
                 'lng' => '-0.5846675417214581',
                 'managed_by' => 'Buckinghamshire Council',
+                'team_id' => $team->id,
                 'website' => 'https://www.buckinghamshire.gov.uk/waste-and-recycling/household-recycling-centres-permits-and-waste-facilities/find-your-nearest-household-recycling-centre/amersham-recycling-centre/'
             ]),
             new RecyclePoint([
@@ -87,6 +91,7 @@ class DatabaseSeeder extends Seeder
                 'lat' => '51.812716434896664',
                 'lng' => '-0.7324014324905349',
                 'managed_by' => 'Buckinghamshire Council',
+                'team_id' => $team->id,
                 'website' => 'https://www.buckinghamshire.gov.uk/waste-and-recycling/household-recycling-centres-permits-and-waste-facilities/find-your-nearest-household-recycling-centre/aston-clinton/'
             ]),
             new RecyclePoint([
@@ -95,6 +100,7 @@ class DatabaseSeeder extends Seeder
                 'lat' => '51.825077438666156',
                 'lng' => '-0.8504570760962087',
                 'managed_by' => 'Buckinghamshire Council',
+                'team_id' => $team->id,
                 'website' => 'https://www.buckinghamshire.gov.uk/waste-and-recycling/household-recycling-centres-permits-and-waste-facilities/find-your-nearest-household-recycling-centre/aylesbury-recycling-centre/'
             ]),
             new RecyclePoint([
@@ -103,6 +109,7 @@ class DatabaseSeeder extends Seeder
                 'lat' => '51.68851633988863',
                 'lng' => '-0.8665020319266178',
                 'managed_by' => 'Buckinghamshire Council',
+                'team_id' => $team->id,
                 'website' => 'https://www.buckinghamshire.gov.uk/waste-and-recycling/household-recycling-centres-permits-and-waste-facilities/find-your-nearest-household-recycling-centre/bledlow-ridge-recycling-centre/'
             ]),
             new RecyclePoint([
@@ -111,14 +118,16 @@ class DatabaseSeeder extends Seeder
                 'lat' => '51.69056078811511',
                 'lng' => '-0.5882834165835442',
                 'managed_by' => 'Buckinghamshire Council',
+                'team_id' => $team->id,
                 'website' => 'https://www.buckinghamshire.gov.uk/waste-and-recycling/household-recycling-centres-permits-and-waste-facilities/find-your-nearest-household-recycling-centre/chesham-recycling-centre/'
             ]),
             new RecyclePoint([
-                'name' => 'Aylesbury recycling centre',
+                'name' => 'Langley recycling centre',
                 'address' => 'Langley Park Road, Langley, SL3 6DD',
                 'lat' => '51.510364528216456',
                 'lng' => '-0.5417714607741991',
                 'managed_by' => 'Buckinghamshire Council',
+                'team_id' => $team->id,
                 'website' => 'https://www.buckinghamshire.gov.uk/waste-and-recycling/household-recycling-centres-permits-and-waste-facilities/find-your-nearest-household-recycling-centre/langley-recycling-centre/'
             ])
         ];
