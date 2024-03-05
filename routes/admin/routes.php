@@ -11,4 +11,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/recycle-centres', function () {
+        return view('recycle-points-menu');
+    })->name('recycle-centres');
 });

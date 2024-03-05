@@ -17,7 +17,7 @@
                 </div>
                 <div class="space-y-12">
                     <div class="border-b border-gray-900/10 pb-12">
-                        <h2 class="text-base font-semibold leading-7 text-gray-900">{{$title}}</h2>
+                        <h2 class="text-lg font-semibold leading-7 text-gray-900">{{$title}}</h2>
                         {{$content}}
                     </div>
                 </div>

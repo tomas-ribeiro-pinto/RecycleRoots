@@ -28,7 +28,7 @@
                                             {{ __('Please provide the email address of the person you would like to add to this team.') }}
                                         </div>
                                         <!-- Member Email -->
-                                        <div class="mt-3 col-span-6 sm:col-span-4">
+                                        <div class="mt-6 col-span-6 sm:col-span-4">
                                             <x-label for="email" value="{{ __('Email') }}" />
                                             <x-input id="email" type="email" class="mt-1 block w-full" wire:model="addTeamMemberForm.email" />
                                             <x-input-error for="email" class="mt-2" />
