@@ -24,6 +24,12 @@
         <x-banner />
 
         <div class="min-h-screen bg-gray-100">
+            @if(Session::has('message'))
+                <x-flash-message :message="session('message')"/>
+            @elseif(Session::has('error'))
+                <x-flash-error-message :message="session('error')"/>
+            @endif
+
             @include('admin-navigation-menu')
 
             <!-- Page Heading -->

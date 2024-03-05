@@ -63,7 +63,7 @@ class MapController extends Controller
 
         $recyclePoints = $recyclePoints->sortBy('distance');
 
-        return view('recycling-centre-map', compact("lat", "lng", "markers", "search", "recyclePoints"));
+        return view('recycle-points-map', compact("lat", "lng", "markers", "search", "recyclePoints"));
     }
 
     /**

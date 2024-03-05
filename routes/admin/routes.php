@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ModelControllers\RecyclePointController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware([
@@ -12,7 +13,8 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/recycle-centres', function () {
-        return view('recycle-points-menu');
-    })->name('recycle-centres');
+    Route::get('/recycle-centres', [RecyclePointController::class, 'index'])->name('recycle-centres');
+    Route::post('/recycle-centres/add', [RecyclePointController::class, 'create']);
+    Route::post('/recycle-centres/edit', [RecyclePointController::class, 'update']);
+    Route::post('/recycle-centres/remove', [RecyclePointController::class, 'destroy']);
 });

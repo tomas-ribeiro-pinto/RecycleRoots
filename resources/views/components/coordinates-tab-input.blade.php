@@ -53,10 +53,13 @@
     </div>
     <div class="me-2 p-4 grid grid-cols-6 gap-x-6 gap-y-8" x-show.important="!using_postcode">
         <div class="col-span-3">
-            <x-app-form-text-input label="Latitude" name="lat" :value="$this->lat"/>
+            <x-app-form-text-input label="Latitude" name="lat" :value="$this->lat = '' ? old('lat') : $this->lat"/>
         </div>
         <div class="col-span-3">
-            <x-app-form-text-input label="Longitude" name="lng" :value="$this->lng"/>
+            <x-app-form-text-input label="Longitude" name="lng" :value="$this->lng = '' ? old('lng') : $this->lng"/>
         </div>
     </div>
+    @if($errors->all('latitude') || $errors->all('longitude'))
+        <div class="error text-sm text-red-500 my-3">Location Coordinates is a required field</div>
+    @endif
 </div>
