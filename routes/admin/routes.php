@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ModelControllers\CharityController;
 use App\Http\Controllers\ModelControllers\RecyclePointController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,4 +18,10 @@ Route::middleware([
     Route::post('/recycle-centres/add', [RecyclePointController::class, 'create']);
     Route::post('/recycle-centres/edit', [RecyclePointController::class, 'update']);
     Route::post('/recycle-centres/remove', [RecyclePointController::class, 'destroy']);
+
+    Route::get('/charities', [CharityController::class, 'index'])->name('charities');
+    Route::post('/charities/add', [CharityController::class, 'create']);
+    Route::get('/charities/{charity}', [CharityController::class, 'show']);
+    Route::post('/charities/{charity}/edit', [CharityController::class, 'update']);
+    Route::post('/charities/{charity}/remove', [CharityController::class, 'destroy']);
 });

@@ -5,15 +5,13 @@ namespace App\Livewire;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\RecyclePoint;
+use App\Models\Charity;
 
-class RecyclePointTable extends DataTableComponent
+class CharityTable extends DataTableComponent
 {
-    // Display only owned recycle points
     public function builder(): Builder
     {
-        return RecyclePoint::query()
-            ->where('team_id', auth()->user()->currentTeam->id)
+        return Charity::query()
             ->select();
     }
 
@@ -32,20 +30,25 @@ class RecyclePointTable extends DataTableComponent
             Column::make("Name", "name")
                 ->searchable()
                 ->sortable(),
-            Column::make("Address", "address"),
+            Column::make("Email", "email")
+                ->format(
+                    fn($value, $row, Column $colum) =>
+                    view('components.table-button',
+                        ['label' => $value, 'url' => 'mailto:'.$value, 'link' => true, 'colorClasses' => 'underline hover:text-r_orange'])
+                ),
             Column::make("Website", "website")
                 ->format(
                     fn($value, $row, Column $colum) =>
-                        view('components.table-button',
+                    view('components.table-button',
                         ['label' => 'Open URL', 'url' => $value, 'icon' => 'open', 'open_new_tab' => 'true', 'colorClasses' => 'bg-white text-gray-900 hover:bg-gray-100'])
                 ),
-            Column::make("Managed By", "managed_by")
-                ->sortable(),
+            Column::make("Phone", "phone"),
+            Column::make("Registration ID", "charity_registration"),
             Column::make("")
                 ->label(
                     fn($row, Column $column) =>
-                        view('components.recycle-point-table-action-buttons',
-                        ['row' => $row])
+                    view('components.charity-table-action-buttons',
+                        ['row' => $row ])
                 ),
         ];
     }

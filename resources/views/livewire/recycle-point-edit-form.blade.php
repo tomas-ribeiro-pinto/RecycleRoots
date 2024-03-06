@@ -22,10 +22,6 @@
                     <hr>
                     <h3 class="text-sm font-medium my-4">Location Coordinates <span class="text-red-500 sups">*</span></h3>
                     <x-coordinates-tab-input/>
-                    @error('latitude' || 'longitude')
-                    <div class="error text-sm text-red-500 mt-1">Location Coordinates is a required field</div>
-                    @enderror
-                    <hr>
                 </div>
                 <div class="sm:col-span-3">
                     <x-app-form-text-input label="Managed By" name="managed_by" :value="auth()->user()->currentTeam->name" :required="false"/>

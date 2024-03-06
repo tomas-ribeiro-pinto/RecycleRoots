@@ -20,4 +20,9 @@ class Item extends Model
     {
         return $this->belongsTo(ItemType::class);
     }
+
+    public function charities()
+    {
+        return $this->belongsToMany(Charity::class);
+    }
 }

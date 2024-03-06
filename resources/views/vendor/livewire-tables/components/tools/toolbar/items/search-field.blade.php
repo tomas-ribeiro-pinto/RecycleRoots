@@ -3,10 +3,10 @@
 <div x-cloak x-show="!currentlyReorderingStatus"
     @class([
         'mb-3 mb-md-0 input-group' => $component->isBootstrap(),
-        'flex rounded-md shadow-sm bg-r_green-100' => $component->isTailwind(),
+        'flex rounded-md shadow-sm bg-gray-300' => $component->isTailwind(),
     ])>
     <div class="m-auto mx-3 ">
-        <x-search-icon class="w-5 h-5"/>
+        <x-search-icon class="w-5 h-5 text-r_green-200"/>
     </div>
         <input
             wire:model{{ $component->getSearchOptions() }}="search"
