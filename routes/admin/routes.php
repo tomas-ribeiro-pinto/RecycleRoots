@@ -16,8 +16,9 @@ Route::middleware([
 
     Route::get('/recycle-centres', [RecyclePointController::class, 'index'])->name('recycle-centres');
     Route::post('/recycle-centres/add', [RecyclePointController::class, 'create']);
-    Route::post('/recycle-centres/edit', [RecyclePointController::class, 'update']);
-    Route::post('/recycle-centres/remove', [RecyclePointController::class, 'destroy']);
+    Route::get('/recycle-centres/{recycleCentre}', [RecyclePointController::class, 'show']);
+    Route::post('/recycle-centres/{recycleCentre}/edit', [RecyclePointController::class, 'update']);
+    Route::post('/recycle-centres/{recycleCentre}/remove', [RecyclePointController::class, 'destroy']);
 
     Route::get('/charities', [CharityController::class, 'index'])->name('charities');
     Route::post('/charities/add', [CharityController::class, 'create']);

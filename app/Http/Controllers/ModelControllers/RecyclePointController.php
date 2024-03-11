@@ -41,6 +41,11 @@ class RecyclePointController extends Controller
         return back()->with('message', 'Record Added!');
     }
 
+    public function show(RecyclePoint $recycleCentre)
+    {
+        return view('recycle-points-edit-menu', compact("recycleCentre"));
+    }
+
     public function update()
     {
         if(!request('id'))
@@ -74,6 +79,6 @@ class RecyclePointController extends Controller
         $recyclePoint = RecyclePoint::find(request('id'));
         $recyclePoint->delete();
 
-        return back()->with('message', 'Record Removed!');
+        return redirect('recycle-centres')->with('message', 'Record Removed!');
     }
 }

@@ -24,7 +24,7 @@ class CharityController extends Controller
             'email' => ['required', 'email', 'max:100'],
             'phone' => ['required', 'max:100'],
             'description' => ['max:200'],
-            'charity_registration' => ['required', 'max:50'],
+            'charity_registration' => ['max:50'],
             'website' => ['required', 'url'],
         ]);
 
@@ -32,8 +32,8 @@ class CharityController extends Controller
             'name' => request('name'),
             'email' => request('email'),
             'phone' => request('phone'),
-            'description' => request('description'),
-            'charity_registration' => request('charity_registration'),
+            'description' => request('description') ?? 'N/A',
+            'charity_registration' => request('charity_registration') ?? 'N/A',
             'website' => request('website')
         ]);
 
@@ -55,7 +55,7 @@ class CharityController extends Controller
             'email' => ['required', 'email', 'max:100'],
             'phone' => ['required', 'max:100'],
             'description' => ['max:200'],
-            'charity_registration' => ['required', 'max:50'],
+            'charity_registration' => ['max:50'],
             'website' => ['required', 'url'],
         ]);
 

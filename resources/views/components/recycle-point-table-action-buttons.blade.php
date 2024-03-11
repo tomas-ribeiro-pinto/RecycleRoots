@@ -1,13 +1,5 @@
 <div class="flex gap-4">
-    <div x-data="{ show: false}">
-        <button @click="show = true" type="button" class="text-r_green-200 hover:text-r_green-100 hover:underline font-medium">
-            Edit
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 inline m-auto">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-            </svg>
-        </button>
-        <livewire:recycle-point-edit-form :recyclePoint="$row->id" :wire:key="$row->id"/>
-    </div>
+    <x-table-button label="Edit" url="{{request()->fullUrl() . '/' . $row->id}}" icon="edit" :link="true" open_new_tab="true" colorClasses="text-r_green-200 hover:text-r_green-100"/>
     <div x-data="{ show: false}">
         <button @click="show = true" type="button" class="text-red-500 hover:text-red-600 hover:underline font-medium">
             Remove
@@ -16,7 +8,7 @@
             </svg>
         </button>
         <div x-show="show">
-            <form method="POST" action="{{request()->fullUrl()}}/remove">
+            <form method="POST" action="{{request()->fullUrl() . "/" . $row->id}}/remove">
                 @csrf
                 <input type="hidden" name="id" value="{{$row->id}}" required/>
                 <x-confirmation-modal>

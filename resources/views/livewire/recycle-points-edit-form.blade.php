@@ -10,14 +10,14 @@
                     <div x-show="show">
                         <form method="POST" action="{{request()->fullUrl()}}/remove">
                             @csrf
-                            <input type="hidden" name="id" value="{{$charity->id}}" required/>
+                            <input type="hidden" name="id" value="{{$recyclePoint->id}}" required/>
                             <x-confirmation-modal>
                                 <x-slot name="title">
-                                    {{ __('Remove Charity') }}
+                                    {{ __('Remove Recycle Centre') }}
                                 </x-slot>
 
                                 <x-slot name="content">
-                                    {{ __('Are you sure you would like to remove and delete this charity?') }}
+                                    {{ __('Are you sure you would like to remove and delete this Recycle Centre?') }}
                                 </x-slot>
 
                                 <x-slot name="footer">
@@ -40,31 +40,32 @@
                     <p class="text-sm"><span class="text-r_orange sups">*</span> Required Field</p>
                 </div>
 
-                <input type="hidden" name="id" value="{{$charity->id}}" required/>
+                <input type="hidden" name="id" value="{{$recyclePoint->id}}" required/>
 
                 <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div class="sm:col-span-3">
-                        <x-app-form-text-input label="Name" name="name" :required="true" :value="$charity->name"/>
-                    </div>
-
-                    <div class="sm:col-span-3">
-                        <x-app-form-text-input label="Email" type="email" name="email" :required="true" :value="$charity->email"/>
-                    </div>
-
-                    <div class="sm:col-span-3">
-                        <x-app-form-text-input label="Phone Number" name="phone" :required="true" :value="$charity->phone"/>
-                    </div>
-
-                    <div class="sm:col-span-3">
-                        <x-app-form-text-input label="Registration ID" name="charity_registration" :required="false" :value="$charity->charity_registration"/>
+                    <div class="sm:col-span-full">
+                        <input type="hidden" name="id" value="{{$recyclePoint->id}}" required/>
+                        <x-app-form-text-input label="Name" name="name" value="{{$recyclePoint->name}}" :required="true"/>
                     </div>
 
                     <div class="sm:col-span-full">
-                        <x-app-form-text-input label="Description" name="description" :required="false" :value="$charity->description"/>
+                        <x-app-form-text-input label="Address (Use commas to separate lines)" name="address" value="{{$recyclePoint->address}}" :required="true"/>
+                    </div>
+                    <div class="col-span-full">
+                        <hr>
+                        <h3 class="text-sm font-medium my-4">Location Coordinates <span class="text-red-500 sups">*</span></h3>
+                        <x-coordinates-tab-input/>
+                    </div>
+                    <div class="sm:col-span-3">
+                        <x-app-form-text-input label="Managed By" name="managed_by" :value="auth()->user()->currentTeam->name" :required="false"/>
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <x-app-form-text-input label="Description (for internal use)" name="description" :required="false" value="{{$recyclePoint->description}}"/>
                     </div>
 
                     <div class="sm:col-span-full">
-                        <x-app-form-text-input label="Website" name="website" :required="true" :value="$charity->website"/>
+                        <x-app-form-text-input label="Website" name="website" :required="true" value="{{$recyclePoint->website}}"/>
                     </div>
                 </div>
 
@@ -79,5 +80,5 @@
     </div>
 
     <livewire:add-item-to-model-menu
-            :model="$charity" label="Items accepted for Donation"/>
+            :model="$recyclePoint" label="Items accepted in this Recycle Centre"/>
 </div>

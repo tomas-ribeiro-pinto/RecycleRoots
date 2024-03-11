@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="sm:col-span-3">
-                    <x-app-form-text-input label="Registration ID" name="charity_registration" :required="true" :value="old('charity_registration')"/>
+                    <x-app-form-text-input label="Registration ID" name="charity_registration" :required="false" :value="old('charity_registration')"/>
                 </div>
 
                 <div class="sm:col-span-full">
