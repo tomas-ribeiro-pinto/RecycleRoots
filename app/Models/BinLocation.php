@@ -15,4 +15,14 @@ class BinLocation extends Model
     {
         return $this->hasMany(BinException::class);
     }
+
+    public function bin()
+    {
+        return $this->belongsTo(Bin::class);
+    }
+
+    public function teamPostcode()
+    {
+        return $this->belongsTo(TeamPostcode::class);
+    }
 }

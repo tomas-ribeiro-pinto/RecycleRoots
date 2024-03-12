@@ -16,8 +16,13 @@ class Bin extends Model
         return $this->hasMany(BinLocation::class);
     }
 
-    public function itemTypes()
+    public function items()
     {
         return $this->belongsToMany(Item::class);
+    }
+
+    public function team()
+    {
+        return $this->hasOne(Team::class);
     }
 }

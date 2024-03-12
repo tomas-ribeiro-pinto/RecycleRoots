@@ -8,7 +8,7 @@
                         <x-heroicon-o-trash class="w-4 h-4 inline m-auto"/>
                     </x-danger-button>
                     <div x-show="show">
-                        <form method="POST" action="{{request()->fullUrl()}}/remove">
+                        <form method="POST" action="{{route('charities')}}/remove">
                             @csrf
                             <input type="hidden" name="id" value="{{$charity->id}}" required/>
                             <x-confirmation-modal>

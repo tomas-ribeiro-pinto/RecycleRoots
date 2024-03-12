@@ -15,6 +15,15 @@
                     <x-admin-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-admin-nav-link>
+                    <x-admin-nav-link href="{{ route('recycle-centres') }}" :active="request()->routeIs('recycle-centres')">
+                        {{ __('Recycle Centres') }}
+                    </x-admin-nav-link>
+                    <x-admin-nav-link href="{{ route('bin-rules') }}" :active="request()->routeIs('bin-rules')">
+                        {{ __('Bin Rules') }}
+                    </x-admin-nav-link>
+                    <x-admin-nav-link href="{{ route('charities') }}" :active="request()->routeIs('charities')">
+                        {{ __('Charities') }}
+                    </x-admin-nav-link>
                 </div>
             </div>
 
@@ -152,6 +161,15 @@
                 <!-- Account Management -->
                 <x-responsive-admin-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     {{ __('Profile') }}
+                </x-responsive-admin-nav-link>
+                <x-responsive-admin-nav-link href="{{ route('recycle-centres') }}" :active="request()->routeIs('recycle-centres')">
+                    {{ __('Recycle Centres') }}
+                </x-responsive-admin-nav-link>
+                <x-responsive-admin-nav-link href="{{ route('bin-rules') }}" :active="request()->routeIs('bin-rules')">
+                    {{ __('Bin Rules') }}
+                </x-responsive-admin-nav-link>
+                <x-responsive-admin-nav-link href="{{ route('charities') }}" :active="request()->routeIs('charities')">
+                    {{ __('Charities') }}
                 </x-responsive-admin-nav-link>
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

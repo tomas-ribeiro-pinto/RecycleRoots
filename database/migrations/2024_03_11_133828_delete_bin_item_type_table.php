@@ -11,14 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bins', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('color');
-            $table->string('dimensions');
-            $table->boolean('is_template');
-            $table->timestamps();
-        });
+        Schema::dropIfExists('bin_item_type');
     }
 
     /**
@@ -26,6 +19,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bins');
+        Schema::create('bin_item_type', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('bin_id')->constrained();
+            $table->foreignId('item_type_id')->constrained();
+            $table->timestamps();
+        });
     }
 };

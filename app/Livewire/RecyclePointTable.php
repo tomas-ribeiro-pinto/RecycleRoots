@@ -24,6 +24,7 @@ class RecyclePointTable extends DataTableComponent
         $this->setDefaultPerPage(10);
         $this->setPaginationEnabled();
         $this->setColumnSelectStatus(false);
+        $this->setEmptyMessage('No recycle centres found');
     }
 
     public function columns(): array

@@ -22,6 +22,7 @@ class CharityTable extends DataTableComponent
         $this->setDefaultPerPage(10);
         $this->setPaginationEnabled();
         $this->setColumnSelectStatus(false);
+        $this->setEmptyMessage('No charities found');
     }
 
     public function columns(): array

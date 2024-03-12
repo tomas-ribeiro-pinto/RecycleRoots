@@ -154,17 +154,33 @@ class DatabaseSeeder extends Seeder
                     $this->findItem('Cooking oil and fats', $items),
                     $this->findItem('Car oil', $items),
                     $this->findItem('Fluorescent tubes', $items),
-
                     $this->findItem('Furniture', $items),
                     $this->findItem('Paint (hardened)', $items),
                     $this->findItem('Garden waste', $items),
                     $this->findItem('General Waste', $items),
                     $this->findItem('Gas bottles', $items),
-                    $this->findItemByType('Electrical Appliances', $items),
-                    $this->findItemByType('Building Materials', $items),
-                    $this->findItemByType('Bathroom Suites', $items),
-                    $this->findItemByType('Asbestos', $items),
+                    $this->findItem('Glass', $items),
             ]);
+            $recyclePoint
+                ->items()
+                ->attach(
+                    $this->findItemByType('Electrical Appliances', $items)->pluck('id'),
+                );
+            $recyclePoint
+                ->items()
+                ->attach(
+                    $this->findItemByType('Building Materials', $items)->pluck('id'),
+                );
+            $recyclePoint
+                ->items()
+                ->attach(
+                    $this->findItemByType('Bathroom Suites', $items)->pluck('id'),
+                );
+            $recyclePoint
+                ->items()
+                ->attach(
+                    $this->findItemByType('Asbestos', $items)->pluck('id'),
+                );
         }
     }
 
@@ -183,9 +199,6 @@ class DatabaseSeeder extends Seeder
             return $item->itemType->name == $type;
         });
 
-        foreach($result as $item)
-        {
-            return $item->id;
-        }
+        return $result;
     }
 }
