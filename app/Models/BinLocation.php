@@ -11,7 +11,7 @@ class BinLocation extends Model
 
     protected $guarded = [];
 
-    public function binExceptions()
+    public function exceptions()
     {
         return $this->hasMany(BinException::class);
     }

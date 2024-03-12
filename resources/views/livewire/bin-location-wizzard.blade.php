@@ -56,7 +56,12 @@
                     <span class="text-sm font-medium text-r_orange">{{$postcode->postcode}}<span class="text-black font-normal">{{$postcode == $this->postcodes[array_key_last($this->postcodes)] ? '' : ', '}}</span></span>
                 @endforeach
                 @if(empty($this->postcodes))
-                    <span class="text-sm font-medium text-r_green-200">No Postcodes added yet</span>
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-r_green-200">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                        </svg>
+                        <span class="text-sm font-medium text-r_green-200">No postcodes added yet</span>
+                    </div>
                 @endif
             </p>
         </div>
@@ -89,9 +94,20 @@
                         </button>
                     </div>
                 @else
-                    <h3 class="text-lg text-r_green-200 font-medium">Please select a Bin template to view details</h3>
+                    <div class="flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-r_green-200">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                        </svg>
+                        <h3 class="text-lg text-r_green-200 font-medium">Please select a Bin template to view details</h3>
+                    </div>
                 @endif
             </div>
+        </div>
+        <div class="mt-4 flex justify-end">
+            <button wire:click="addBin" {{$submitDisabled ? 'disabled' : ''}}
+                    class="btn rounded-md px-3 py-2 text-center text-sm font-semibold shadow-sm {{$submitDisabled ? 'text-gray-500 bg-warmGray-300 hover:cursor-not-allowed' : 'text-white bg-r_green-200 hover:text-gray-100'}}">
+                Add Bin Rule
+            </button>
         </div>
     </div>
     <div class="col-span-5 col-start-4 max-h-screen">
@@ -107,89 +123,17 @@
             </div>
             <div class="p-4 rounded-md flex gap-6 bg-gray-200 border-2 border-gray-400 border-opacity-60 overflow-y-scroll">
                 @foreach($bins as $bin)
-                <div class="w-24 group hover:cursor-pointer" wire:click="selectBin({{$bin->id}})">
-                    <div class="flex justify-center p-2 rounded-2xl border-2 {{$selectedBin == $bin ? 'bg-orange-200 border-r_orange border-opacity-40' : 'bg-r_white border-gray-400 border-opacity-60'}}
-                                group-hover:border-r_orange group-hover:border-opacity-80 group-hover:bg-orange-100">
-                        <x-bin-icon class="h-16" color="{{strtolower($bin->color)}}"/>
+                    <div class="w-24 group hover:cursor-pointer" wire:click="selectBin({{$bin->id}})">
+                        <div class="flex justify-center p-2 rounded-2xl border-2 {{$selectedBin == $bin ? 'bg-orange-200 border-r_orange border-opacity-40' : 'bg-r_white border-gray-400 border-opacity-60'}}
+                                    group-hover:border-r_orange group-hover:border-opacity-80 group-hover:bg-orange-100">
+                            <x-bin-icon class="h-16" color="{{strtolower($bin->color)}}"/>
+                        </div>
+                        <p class="text-xs mt-1 text-center font-medium group-hover:underline ">{{$bin->name}}</p>
+                        <p class="text-xs mt-1 text-center truncate">{{$bin->dimensions}}</p>
                     </div>
-                    <p class="text-xs mt-1 text-center font-medium group-hover:underline ">{{$bin->name}}</p>
-                    <p class="text-xs mt-1 text-center truncate">{{$bin->dimensions}}</p>
-                </div>
                 @endforeach
             </div>
         </div>
-        <p class="my-4 font-medium">Items accepted in this Bin:</p>
-        <div class="grid grid-cols-6 h-56">
-            <div class="col-span-3 p-4 rounded-md flex-row divide-y gap-6 bg-gray-200 border-2 border-gray-400 border-opacity-60 overflow-x-scroll">
-                @if($selectedBin != null)
-                    @foreach($selectedBin->items as $item)
-                        <div class="flex justify-between items-center py-1">
-                            <div>
-                                <h1 class="font-medium">{{$item->name}}</h1>
-                            </div>
-                            <div>
-                                <button class="cursor-pointer ms-6 text-sm font-medium text-red-500 hover:underline" wire:click="removeItem('{{$item->id}}')">
-                                    {{ __('Remove') }}
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="flex justify-between items-center py-1">
-                            <div>
-                                <h1 class="font-medium">{{$item->name}}</h1>
-                            </div>
-                            <div>
-                                <button class="cursor-pointer ms-6 text-sm font-medium text-red-500 hover:underline" wire:click="removeItem('{{$item->id}}')">
-                                    {{ __('Remove') }}
-                                </button>
-                            </div>
-                        </div>                        <div class="flex justify-between items-center py-1">
-                            <div>
-                                <h1 class="font-medium">{{$item->name}}</h1>
-                            </div>
-                            <div>
-                                <button class="cursor-pointer ms-6 text-sm font-medium text-red-500 hover:underline" wire:click="removeItem('{{$item->id}}')">
-                                    {{ __('Remove') }}
-                                </button>
-                            </div>
-                        </div>                        <div class="flex justify-between items-center py-1">
-                            <div>
-                                <h1 class="font-medium">{{$item->name}}</h1>
-                            </div>
-                            <div>
-                                <button class="cursor-pointer ms-6 text-sm font-medium text-red-500 hover:underline" wire:click="removeItem('{{$item->id}}')">
-                                    {{ __('Remove') }}
-                                </button>
-                            </div>
-                        </div>                        <div class="flex justify-between items-center py-1">
-                            <div>
-                                <h1 class="font-medium">{{$item->name}}</h1>
-                            </div>
-                            <div>
-                                <button class="cursor-pointer ms-6 text-sm font-medium text-red-500 hover:underline" wire:click="removeItem('{{$item->id}}')">
-                                    {{ __('Remove') }}
-                                </button>
-                            </div>
-                        </div>                        <div class="flex justify-between items-center py-1">
-                            <div>
-                                <h1 class="font-medium">{{$item->name}}</h1>
-                            </div>
-                            <div>
-                                <button class="cursor-pointer ms-6 text-sm font-medium text-red-500 hover:underline" wire:click="removeItem('{{$item->id}}')">
-                                    {{ __('Remove') }}
-                                </button>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
-            </div>
-            <div class="col-span-3">
-                <div class="mt-4 flex justify-end">
-                    <x-button wire:click="">
-                        {{ __('Add Bin Rule') }}
-                    </x-button>
-                </div>
-            </div>
-        </div>
+        <livewire:add-items-to-bin :selectedBin="$this->selectedBin" :postcodes="$this->postcodes" key="{{ now() }}"/>
     </div>
 </div>

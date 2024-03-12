@@ -25,6 +25,7 @@ class BinLocationWizzard extends Component
     public $myTemplates;
     public $templates;
     public $myTemplatesToggle;
+    public $submitDisabled;
 
     public function mount()
     {
@@ -41,6 +42,7 @@ class BinLocationWizzard extends Component
         $this->bins = $this->templates;
         $this->myTemplatesToggle = false;
 
+        $this->submitDisabled = true;
         $this->selectedBin = null;
         $this->searchEmpty = true;
         $this->clearSearch();
@@ -108,22 +110,26 @@ class BinLocationWizzard extends Component
         $this->selectedItem = TeamPostcode::find($id);
         array_push($this->postcodes, $this->selectedItem);
         $this->clearSearch();
+        $this->assessSubmit();
     }
 
     public function removeItems()
     {
         $this->searchEmpty = true;
         $this->postcodes = [];
+        $this->assessSubmit();
     }
 
     public function selectBin($id)
     {
         $this->selectedBin = Bin::find($id);
+        $this->assessSubmit();
     }
 
     public function clearBin()
     {
         $this->selectedBin = null;
+        $this->assessSubmit();
     }
 
     public function toggleMyTemplates()
@@ -138,5 +144,23 @@ class BinLocationWizzard extends Component
             $this->myTemplatesToggle = true;
             $this->bins = $this->myTemplates;
         }
+    }
+
+    public function assessSubmit()
+    {
+        if($this->selectedBin != null
+            && count($this->postcodes) > 0)
+        {
+            $this->submitDisabled = false;
+        }
+        else
+        {
+            $this->submitDisabled = true;
+        }
+    }
+
+    public function addBin()
+    {
+        $this->dispatch('addBin');
     }
 }
