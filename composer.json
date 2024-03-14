@@ -13,7 +13,8 @@
         "laravel/tinker": "^2.8",
         "larswiegers/laravel-maps": "^0.18.0",
         "livewire/livewire": "^3.0",
-        "rappasoft/laravel-livewire-tables": "^3.2"
+        "rappasoft/laravel-livewire-tables": "^3.2",
+        "ext-http": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

@@ -15,4 +15,9 @@ class TeamPostcode extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function binLocations()
+    {
+        return $this->hasMany(BinLocation::class);
+    }
 }

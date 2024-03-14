@@ -8,9 +8,9 @@ use App\Models\Item;
 use App\Models\TeamPostcode;
 use Livewire\Component;
 
-class AddItemsToBin extends Component
+class EditItemsToBin extends Component
 {
-    public $postcodes;
+    public $postcode;
     public $selectedBin;
     public $filter;
     public $search;
@@ -24,21 +24,19 @@ class AddItemsToBin extends Component
 
     protected $listeners = ['addBin'];
 
-    public function mount($selectedBin, $postcodes)
+    public function mount($selectedBin, $postcode)
     {
-        $this->postcodes = $postcodes;
+        $this->postcode = $postcode;
+        $this->selectedBin = $selectedBin;
+        $this->selectedBinItems = $this->selectedBin->getItems();
+        $this->getExceptions();
         $this->clearFilter();
         $this->clearSearch();
-        $this->selectedBin = $selectedBin;
-        if ($this->selectedBin != null) {
-            $this->getBinItemsWithExceptions();
-        }
-        $this->binExceptions = [];
     }
 
     public function render()
     {
-        return view('livewire.add-items-to-bin');
+        return view('livewire.edit-items-to-bin');
     }
 
     public function updatedFilter()
@@ -58,9 +56,7 @@ class AddItemsToBin extends Component
     {
         $this->filterEmpty = true;
         $this->filter = '';
-        if ($this->selectedBin != null) {
-            $this->getBinItemsWithExceptions();
-        }
+        $this->getBinItemsWithExceptions();
     }
 
     public function updatedSearch()
@@ -141,12 +137,10 @@ class AddItemsToBin extends Component
         }
 
         $this->binExceptions[] = [
-            'bin_id' => $this->selectedBin->id,
+            'bin_location_id' => $this->selectedBin->bin->id,
             'item_id' => $this->selectedItem,
             'exception_rule' => 'add'
         ];
-
-        $this->getBinItemsWithExceptions();
 
         $this->clearSearch();
         $this->clearFilter();
@@ -158,7 +152,7 @@ class AddItemsToBin extends Component
     {
         $item = $this->selectedBinItems[$id];
         $t_item = [
-            'bin_id' => $this->selectedBin->id,
+            'bin_location_id' => $this->selectedBin->bin->id,
             'item_id' => $id,
             'exception_rule' => $item['exception']
         ];
@@ -167,51 +161,47 @@ class AddItemsToBin extends Component
             $this->binExceptions = array_filter($this->binExceptions, function($exception) use ($t_item) {
                 return $exception != $t_item;
             });
-            $this->getBinItemsWithExceptions();
+            $this->clearFilter();
             session()->flash('message', "Item Added!");
         }
         else
         {
             $t_item['exception_rule'] = 'remove';
             $this->binExceptions[] = $t_item;
-            $this->getBinItemsWithExceptions();
+            $this->clearFilter();
             session()->flash('message', "Item Removed!");
         }
     }
 
     public function addBin()
     {
-        // Check if the postcodes and bin are selected
-        if (count($this->postcodes) == 0 || $this->selectedBin == null)
+        // Check if the postcode and bin are selected
+        if ($this->postcode == null || $this->selectedBin == null)
         {
             return back()->with('error', 'No postcodes or bin selected!');
         }
 
-        // Create the bin location
-        foreach ($this->postcodes as $postcode)
+        // Remove any previous exceptions
+        BinException::where('bin_location_id', $this->selectedBin->id)->delete();
+
+        // Update the bin location with the new exceptions
+        foreach($this->binExceptions as $exception)
         {
-            $binLocation = BinLocation::create([
-                'bin_id' => $this->selectedBin->id,
-                'team_postcode_id' => $postcode->id,
-            ]);
-            foreach($this->binExceptions as $exception)
-            {
-                $exception = new BinException(
-                    [
-                        'bin_location_id' => $binLocation->id,
-                        'item_id' => $exception['item_id'],
-                        'exception_rule' => $exception['exception_rule']
-                    ]
-                );
-                $exception->save();
-            }
+            $exception = new BinException(
+                [
+                    'bin_location_id' => $this->selectedBin->id,
+                    'item_id' => $exception['item_id'],
+                    'exception_rule' => $exception['exception_rule']
+                ]
+            );
+            $exception->save();
         }
-        return redirect(route('bin-rules'))->with('message', 'Bin Rule Added!');
+        return redirect(route('bin-rules').'/'.$this->postcode->postcode)->with('message', 'Bin Rule Edited!');
     }
 
     public function getBinItemsWithExceptions()
     {
-        $binItems = $this->selectedBin->items->sortBy('name');
+        $binItems = $this->selectedBin->bin->items->sortBy('name');
         $binItemsWithExceptions = [];
         foreach($binItems as $item)
         {
@@ -231,5 +221,18 @@ class AddItemsToBin extends Component
             }
         }
         $this->selectedBinItems = $binItemsWithExceptions;
+    }
+
+    public function getExceptions()
+    {
+        $exceptions = $this->selectedBin->exceptions ?? [];
+        foreach ($exceptions as $exception)
+        {
+            $this->binExceptions[] = [
+                'bin_location_id' => $this->selectedBin->bin->id,
+                'item_id' => $exception->item_id,
+                'exception_rule' => $exception->exception_rule
+            ];
+        }
     }
 }

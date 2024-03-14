@@ -1,7 +1,7 @@
 <x-admin-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800">
-            {{ __('Add Bin Rule') }}
+            {{ __('Bin Rules for ' . $postcode->postcode) }}
         </h2>
     </x-slot>
     <div class="ml-6 mt-4">
@@ -13,6 +13,6 @@
         </a>
     </div>
     <div class="py-5 px-10">
-        <livewire:bin-location-wizzard :postcode="$postcode"/>
+        <livewire:postcode-bin-rules-dashboard :postcode="$postcode" :binLocations="$binLocations" key="{{ now() }}"/>
     </div>
 </x-admin-layout>

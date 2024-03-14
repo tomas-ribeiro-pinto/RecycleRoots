@@ -117,20 +117,13 @@
                 <button wire:click="toggleMyTemplates" class="mr-2 btn rounded-2xl px-3 py-2 text-center text-sm font-semibold shadow-sm {{$myTemplatesToggle ? 'bg-r_orange hover:bg-orange-300 text-white border border-gray-300' : 'bg-gray-100 border border-gray-800 text-black hover:bg-gray-800'}} hover:text-gray-100">
                     My Templates
                 </button>
-                <a href="{{route('bin-rules')}}/add" class="btn rounded-md px-3 py-2 text-center text-sm font-semibold text-white shadow-sm bg-r_green-200 hover:text-gray-100">
+                <a href="{{route('create-bin-template')}}" class="btn rounded-md px-3 py-2 text-center text-sm font-semibold text-white shadow-sm bg-r_green-200 hover:text-gray-100">
                     Create new Template
                 </a>
             </div>
             <div class="p-4 rounded-md flex gap-6 bg-gray-200 border-2 border-gray-400 border-opacity-60 overflow-y-scroll">
                 @foreach($bins as $bin)
-                    <div class="w-24 group hover:cursor-pointer" wire:click="selectBin({{$bin->id}})">
-                        <div class="flex justify-center p-2 rounded-2xl border-2 {{$selectedBin == $bin ? 'bg-orange-200 border-r_orange border-opacity-40' : 'bg-r_white border-gray-400 border-opacity-60'}}
-                                    group-hover:border-r_orange group-hover:border-opacity-80 group-hover:bg-orange-100">
-                            <x-bin-icon class="h-16" color="{{strtolower($bin->color)}}"/>
-                        </div>
-                        <p class="text-xs mt-1 text-center font-medium group-hover:underline ">{{$bin->name}}</p>
-                        <p class="text-xs mt-1 text-center truncate">{{$bin->dimensions}}</p>
-                    </div>
+                    <x-bin-card :bin="$bin" :selectedBin="$selectedBin"/>
                 @endforeach
             </div>
         </div>

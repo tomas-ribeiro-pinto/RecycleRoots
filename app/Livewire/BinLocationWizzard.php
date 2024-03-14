@@ -27,7 +27,7 @@ class BinLocationWizzard extends Component
     public $myTemplatesToggle;
     public $submitDisabled;
 
-    public function mount()
+    public function mount($postcode)
     {
         // Set templates variable (bins that are general templates)
         $this->templates = Bin::all()
@@ -46,7 +46,7 @@ class BinLocationWizzard extends Component
         $this->selectedBin = null;
         $this->searchEmpty = true;
         $this->clearSearch();
-        $this->postcodes = [];
+        $postcode == null ? $this->postcodes = [] : $this->postcodes = [$postcode];
         $this->items = [];
         $this->teamPostcodes = auth()->user()->currentTeam->postcodes;
     }

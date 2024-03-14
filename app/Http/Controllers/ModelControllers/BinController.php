@@ -3,21 +3,12 @@
 namespace App\Http\Controllers\ModelControllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\TeamPostcode;
 
 class BinController extends Controller
 {
     public function index()
     {
-        return view('bin-rules-menu');
-    }
-
-    public function indexAdd()
-    {
-        return view('bin-rules-add-menu');
-    }
-
-    public function create()
-    {
-        return redirect(route('bin-rules'))->with('message', 'Record Added!');
+        return view('add-bin-menu');
     }
 }

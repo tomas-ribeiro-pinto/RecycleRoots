@@ -25,4 +25,35 @@ class BinLocation extends Model
     {
         return $this->belongsTo(TeamPostcode::class);
     }
+
+    // Returns an array of items and exceptions for this bin location
+    public function getItems()
+    {
+        $binExceptions = $this->exceptions;
+        $binItems = $this->bin->items->sortBy('name');
+        $binItemsWithExceptions = [];
+        foreach($binItems as $item)
+        {
+            $binItemsWithExceptions[$item->id] = [
+                'item' => $item,
+                'exception' => null
+            ];
+        }
+        if($binExceptions != null)
+        {
+            foreach($binExceptions as $exception)
+            {
+                $binItemsWithExceptions[$exception['item_id']] = [
+                    'item' => Item::find($exception['item_id']),
+                    'exception' => $exception['exception_rule']
+                ];
+            }
+        }
+
+        $binItemsWithExceptions = array_filter($binItemsWithExceptions, function($item) {
+            return $item['exception'] != 'remove';
+        });
+
+        return $binItemsWithExceptions;
+    }
 }

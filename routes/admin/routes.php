@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ModelControllers\BinController;
+use App\Http\Controllers\ModelControllers\BinLocationController;
 use App\Http\Controllers\ModelControllers\CharityController;
 use App\Http\Controllers\ModelControllers\RecyclePointController;
 use Illuminate\Support\Facades\Route;
@@ -21,9 +22,12 @@ Route::middleware([
     Route::post('/recycle-centres/{recycleCentre}/edit', [RecyclePointController::class, 'update']);
     Route::post('/recycle-centres/{recycleCentre}/remove', [RecyclePointController::class, 'destroy']);
 
-    Route::get('/bin-rules', [BinController::class, 'index'])->name('bin-rules');
-    Route::get('/bin-rules/add', [BinController::class, 'indexAdd']);
-    Route::post('/bin-rules/add', [CharityController::class, 'create']);
+    Route::get('/bin-rules', [BinLocationController::class, 'index'])->name('bin-rules');
+    Route::get('/bin-rules/create-template', [BinController::class, 'index'])->name('create-bin-template');
+    Route::get('/bin-rules/add', [BinLocationController::class, 'create']);
+    Route::get('/bin-rules/edit/{binLocation}', [BinLocationController::class, 'update']);
+    Route::get('/bin-rules/{teamPostcode}', [BinLocationController::class, 'show']);
+    Route::post('/bin-rules/{teamPostcode}/remove', [BinLocationController::class, 'destroy']);
 
     Route::get('/charities', [CharityController::class, 'index'])->name('charities');
     Route::post('/charities/add', [CharityController::class, 'create']);

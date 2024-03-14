@@ -43,6 +43,12 @@ class RecyclePointController extends Controller
 
     public function show(RecyclePoint $recycleCentre)
     {
+        $team = $recycleCentre->team_id;
+        if($team != auth()->user()->currentTeam->id)
+        {
+            abort(403);
+        }
+
         return view('recycle-points-edit-menu', compact("recycleCentre"));
     }
 

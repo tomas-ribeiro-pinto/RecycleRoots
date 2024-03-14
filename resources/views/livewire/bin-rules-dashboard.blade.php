@@ -35,7 +35,7 @@
             </a>
         @endforeach
         @if($this->postcodes->isEmpty() || $this->postcodes == null)
-            <div class="col-span-full p-6 flex justify-center items-center">
+            <div class="col-span-full p-6 flex justify-center items-center ">
                 <h3 class="text-lg text-gray-500 font-medium">
                     {{$this->filterEmpty ? 'No postcodes found for your team. Please contact an administrator.'
                                         : 'The postcode was ' . $this->filter .' not found' }}
