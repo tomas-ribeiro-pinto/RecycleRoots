@@ -111,7 +111,7 @@
         </div>
     </div>
     <div class="col-span-5 col-start-4 max-h-screen">
-        <p class="font-medium">Select Bin from template</p>
+        <p class="font-medium">Select Bin from Template</p>
         <div class="">
             <div class="flex justify-end -mb-4 mr-2">
                 <button wire:click="toggleMyTemplates" class="mr-2 btn rounded-2xl px-3 py-2 text-center text-sm font-semibold shadow-sm {{$myTemplatesToggle ? 'bg-r_orange hover:bg-orange-300 text-white border border-gray-300' : 'bg-gray-100 border border-gray-800 text-black hover:bg-gray-800'}} hover:text-gray-100">
@@ -125,6 +125,11 @@
                 @foreach($bins as $bin)
                     <x-bin-card :bin="$bin" :selectedBin="$selectedBin"/>
                 @endforeach
+                @if($bins->isEmpty())
+                    <div class="text-r_green-200 font-medium">
+                        <p>No Bin Templates found!</p>
+                    </div>
+                @endif
             </div>
         </div>
         <livewire:add-items-to-bin :selectedBin="$this->selectedBin" :postcodes="$this->postcodes" key="{{ now() }}"/>

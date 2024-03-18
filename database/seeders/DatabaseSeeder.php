@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Bin;
 use App\Models\Item;
 use App\Models\ItemType;
 use App\Models\RecyclePoint;
@@ -48,6 +49,9 @@ class DatabaseSeeder extends Seeder
         $team->users()->attach($admin1, ['role' => 'admin']);
         $team->users()->attach($blog, ['role' => 'admin']);
 
+        $postcodesSeeder = new PostcodesSeeder();
+        $postcodesSeeder->run();
+
         $recyclePoints = [
             new RecyclePoint([
                 'name' => 'High Wycombe recycling centre',
@@ -77,7 +81,7 @@ class DatabaseSeeder extends Seeder
                 'website' => 'https://www.buckinghamshire.gov.uk/waste-and-recycling/household-recycling-centres-permits-and-waste-facilities/find-your-nearest-household-recycling-centre/burnham-recycling-centre/'
             ]),
             new RecyclePoint([
-                'name' => 'Amersham recycling centree',
+                'name' => 'Amersham recycling centre',
                 'address' => 'London Road East, Amersham, HP7 9DT',
                 'lat' => '51.65333021208072',
                 'lng' => '-0.5846675417214581',
@@ -182,6 +186,9 @@ class DatabaseSeeder extends Seeder
                     $this->findItemByType('Asbestos', $items)->pluck('id'),
                 );
         }
+
+        $templatesSeeder = new TemplatesSeeder();
+        $templatesSeeder->run();
     }
 
     public function findItem($name, $items)
