@@ -1,7 +1,13 @@
 <?php
 
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\PostcodesAPIController;
+use App\Models\BinLocation;
+use App\Models\Charity;
+use App\Models\Item;
+use App\Models\ItemType;
 use App\Models\RecyclePoint;
+use App\Models\TeamPostcode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -23,65 +29,152 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/items', function () {
 
-    $items = \App\Models\Item::all();
+    $items = Item::all();
 
     return response()->json(['status' => 200, 'response' => $items], 200);
 });
 
 Route::get('/item-types', function () {
 
-    $types = \App\Models\ItemType::all();
+    $types = ItemType::all();
 
     return response()->json(['status' => 200, 'response' => $types], 200);
 });
 
-Route::get('/charities', function () {
+Route::get('/charities', function (Request $request) {
 
-    $charities = \App\Models\Charity::all();
+    $item = $request->query('item');
+    $item = Item::where('name', $item)->first();
+
+    // Get all charities
+    $charities = Charity::all();
+
+    if($item == null) {
+        return response()->json(['status' => 200, 'postcode' => null, 'response' => $charities], 200);
+    }
+
+    // Filter the charities to only display those that accept the item
+    $charities = $charities->filter(function($charity) use ($item) {
+        return $charity->searchAcceptedItem($item);
+    });
 
     return response()->json(['status' => 200, 'response' => $charities], 200);
 });
 
 Route::get('/recycle-centres', function (Request $request) {
 
+    $postcode = $request->query('postcode');
+
     // Get all recycle points
     $recyclePoints = RecyclePoint::all();
 
-    if($request->query('postcode'))
-    {
-        $postcode = $request->query('postcode');
-
-        // If the postcode is not set, abort the request
-        if($postcode != null || $postcode != "") {
-
-            // Call Postcode.io API to fetch coordinates of postcode search
-            $response = Http::get('https://api.postcodes.io/postcodes/'. $postcode);
-
-            // If the response is successful, get the latitude and longitude of the search location
-            if($response->status() == 200) {
-                $response = json_decode($response);
-                $lat = $response->result->latitude;
-                $lng = $response->result->longitude;
-
-                // Orders the recycle points by distance from the search location
-                foreach ($recyclePoints as $recyclePoint) {
-                    $mapController = new MapController();
-                    $recyclePoint->distance_in_miles = $mapController->calculateCoordinateDistance([$lat, $lng], [$recyclePoint->lat, $recyclePoint->lng]);
-                }
-
-                $recyclePoints = $recyclePoints->sortBy('distance_in_miles');
-                return response()->json(['status' => 200, 'response' => $recyclePoints], 200);
-            }
-            else if($response->status() == 404) {
-                return response()->json(['status' => 404, 'message' => 'Please enter a valid postcode.'], 404);
-            }
-            else {
-                return response()->json(['status' => 500, 'message' => 'An error occurred. Please try again.'], 500);
-
-            }
-        }
-        return response()->json(['status' => 404,'message' => 'Please enter a valid postcode. Parameters missing.'], 404);
+    if($postcode == null) {
+        return response()->json(['status' => 200, 'postcode' => null, 'response' => $recyclePoints], 200);
     }
 
-    return response()->json(['status' => 200, 'response' => $recyclePoints], 200);
+    // Call Postcode.io API to fetch coordinates of postcode search
+    $postcodeResponse = (new PostcodesAPIController)->searchPostcode($postcode);
+    // Decode the response
+    $postcodeResponse = json_decode($postcodeResponse->content());
+
+    // If the response is successful, get the latitude and longitude of the search location
+    if($postcodeResponse->status == 200)
+    {
+        $lat = $postcodeResponse->response->latitude;
+        $lng = $postcodeResponse->response->longitude;
+    }
+    else
+    {
+        return $postcodeResponse;
+    }
+
+    // Orders the recycle points by distance from the search location
+    foreach ($recyclePoints as $recyclePoint) {
+        $mapController = new MapController();
+        $recyclePoint->distance_in_miles = $mapController->calculateCoordinateDistance([$lat, $lng], [$recyclePoint->lat, $recyclePoint->lng]);
+    }
+
+    // Sort the recycle points by distance (miles)
+    $recyclePoints = $recyclePoints->sortBy('distance_in_miles');
+
+    // Filter the recycle points to only display those within 10 miles of the search location
+    $recyclePoints = $recyclePoints->filter(function($recyclePoint) {
+        return $recyclePoint->distance_in_miles <= 10;
+    });
+
+    // If no recycle points are found within 10 miles of the search location, return a 404 status
+    if($recyclePoints->isEmpty()) {
+        return response()->json(['status' => 404, 'message' => 'No recycle points found within 10 miles of the search location.'], 404);
+    }
+
+    return response()->json(['status' => 200, 'postcode' => $postcodeResponse->response, 'response' => $recyclePoints], 200);
+});
+
+Route::get('/recycle', function (Request $request) {
+
+    $item = Item::where('name', $request->query('item'))->first();
+    $postcode = $request->query('postcode');
+
+    if ($item == null) {
+        return response()->json(['status' => 404, 'message' => 'Item not found.'], 404);
+    }
+    if ($postcode == null) {
+        return response()->json(['status' => 404, 'message' => 'Please enter a valid postcode.'], 404);
+    }
+
+    // Call Postcode.io API to fetch outcode of postcode search
+    $postcodeResponse = (new PostcodesAPIController)->searchPostcode($postcode);
+    $postcodeResponse = json_decode($postcodeResponse->content());
+
+    // If the response is successful, get the outcode of the postcode
+    if ($postcodeResponse->status == 200) {
+        $postcode = $postcodeResponse->response->outcode;
+    }
+    else {
+        return $postcodeResponse;
+    }
+
+    $teamPostcode = TeamPostcode::where('postcode', $postcode)->first();
+
+    $binLocations = BinLocation::where('team_postcode_id', $teamPostcode->id)->get();
+
+    $binLocations = $binLocations->filter(function ($binLocation) use ($item) {
+        return $binLocation->searchAcceptedItem($item);
+    });
+
+
+    // Call API to fetch recycle centres that accept the item
+    $request = Request::create('/api/recycle-centres', 'GET',[
+        'postcode' => $postcode
+    ]);
+    $response = Route::dispatch($request);
+    $response = json_decode($response->getContent(), true);
+
+    if($response['status'] == 200) {
+        $recyclePoints = array_slice($response['response'], 0, 3);
+    }
+    else {
+        return $response;
+    }
+
+    // Call API to fetch recycle centres that accept the item
+    $request = Request::create('/api/charities', 'GET',[
+        'item' => $item->name
+    ]);
+    $response = Route::dispatch($request);
+    $response = json_decode($response->getContent(), true);
+
+    if($response['status'] == 200) {
+        $charities = array_slice($response['response'], 0, 3);
+    }
+    else {
+        return $response;
+    }
+
+    return response()->json(['status' => 200, 'postcode' => $postcodeResponse->response,
+        'response' => [
+            'bin_rules' => $binLocations,
+            'recycle_points' => $recyclePoints,
+            'charities' => $charities
+        ]], 200);
 });

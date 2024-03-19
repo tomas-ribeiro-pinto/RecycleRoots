@@ -23,9 +23,11 @@ class AddBinForm extends Component
     public $name;
     public $color;
     public $dimensions;
+    public $is_recycle_bin;
     public function mount()
     {
         $this->color = 'blue';
+        $this->is_recycle_bin = 1;
         $this->clearFilter();
         $this->clearSearch();
         $this->model = new Bin();
@@ -179,6 +181,7 @@ class AddBinForm extends Component
         $this->model->name = $this->name;
         $this->model->color = $this->color;
         $this->model->dimensions = $this->dimensions;
+        $this->model->is_recycle_bin = $this->is_recycle_bin;
         $this->model->is_template = true;
         $this->model->team_id = auth()->user()->currentTeam->id;
     }

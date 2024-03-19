@@ -24,6 +24,12 @@
                 <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Bin Dimensions <span class="text-r_orange sups">*</span></label>
                 <input wire:model.live="dimensions" type="text" name="dimensions" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6" required/>
 
+
+                <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Is this bin for recycling? <span class="text-r_orange sups">*</span></label>
+                <select wire:model.live="is_recycle_bin" name="is_recycle_bin" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6" required>
+                    <option value="1" selected>Yes</option>
+                    <option value="0">No</option>
+                </select>
             </div>
         </div>
     </div>
@@ -162,6 +168,10 @@
                     <div class="flex gap-1 text-sm">
                         <p class="font-medium">Template: </p>
                         <span class="font-normal">{{$name}}</span>
+                    </div>
+                    <div class="flex gap-1 text-sm">
+                        <p class="font-medium">Bin for recycling:</p>
+                        <span class="font-normal">{{$is_recycle_bin ? 'Yes' : 'No'}}</span>
                     </div>
                 </div>
             @else

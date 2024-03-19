@@ -7,6 +7,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Route;
+use Spatie\FlareClient\Api;
 
 class MapController extends Controller
 {
@@ -20,22 +22,22 @@ class MapController extends Controller
         // If the postcode is not set, redirect to the home page
         if($search != null || $search != "") {
 
-            // Call Postcode.io API to fetch coordinates of postcode search
-            $response = Http::get('https://api.postcodes.io/postcodes/'. $search);
+            // Call API to fetch recycle centres
+            $request = Request::create('/api/recycle-centres', 'GET',[
+                'postcode' => $search
+            ]);
+
+            $response = json_decode(Route::dispatch($request)->getContent());
 
             // If the response is successful, get the latitude and longitude of the search location
-            if($response->status() == 200) {
-                $response = json_decode($response);
-                $lat = $response->result->latitude;
-                $lng = $response->result->longitude;
+            if($response->status == 200) {
+                $lat = $response->postcode->latitude;
+                $lng = $response->postcode->longitude;
 
-                return $this->show($lat, $lng, $search);
-            }
-            else if($response->status() == 404) {
-                return back()->dangerBanner('Please enter a valid postcode.');
+                return $this->show($lat, $lng, $search, $response->response);
             }
             else {
-                return back()->dangerBanner('An error occurred. Please try again.');
+                return back()->dangerBanner($response->message);
             }
         }
 
@@ -45,11 +47,8 @@ class MapController extends Controller
     /**
      * Display the map of recycling centres with markers.
      */
-    public function show($lat, $lng, $search): View
+    public function show($lat, $lng, $search, $recyclePoints): View
     {
-        // Get all recycle points
-        $recyclePoints = RecyclePoint::all();
-
         // Create an array of markers to be displayed in the leaflet map
         $markers = [];
         foreach ($recyclePoints as $recyclePoint) {
@@ -58,10 +57,7 @@ class MapController extends Controller
                 'long' => $recyclePoint->lng,
                 'info' => $recyclePoint->name,
             ];
-            $recyclePoint->distance = $this->calculateCoordinateDistance([$lat, $lng], [$recyclePoint->lat, $recyclePoint->lng]);
         }
-
-        $recyclePoints = $recyclePoints->sortBy('distance');
 
         return view('recycle-points-map', compact("lat", "lng", "markers", "search", "recyclePoints"));
     }

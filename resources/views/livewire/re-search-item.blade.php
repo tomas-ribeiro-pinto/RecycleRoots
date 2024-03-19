@@ -1,4 +1,4 @@
-<form class="mt-4 md:mt-10 mb-4" method="GET" action="{{route('item-search')}}">
+<form class="mt-4" method="GET" action="{{route('item-search')}}">
     <div class="flex-row lg:flex">
         <div class="flex-1 lg:grid-cols-2 flex-row lg:flex relative">
             <div class="flex-1 rounded-xl border-2 lg:border-r-0 border-gray-300 shadow-sm bg-white">
@@ -51,7 +51,7 @@
                 <div class="m-auto pr-2 border-r border-gray-400">
                     <x-home-icon class="w-6 h-6 text-r_green-100"/>
                 </div>
-                <input type="text" name="postcode" id="postcode" class="block w-full border-0 text-black placeholder:text-gray-600 sm:text-md sm:leading-6 focus:border-gray-400 focus:ring-0" placeholder="Type your postcode" required>
+                <input type="text" name="postcode" id="postcode" value="{{$postcode}}" class="block w-full border-0 text-black placeholder:text-gray-600 sm:text-md sm:leading-6 focus:border-gray-400 focus:ring-0" placeholder="Type your postcode" required>
             </div>
         </div>
         <div class="mt-2 md:mt-4 lg:ml-3 lg:my-auto flex justify-end">

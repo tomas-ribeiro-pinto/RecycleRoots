@@ -56,4 +56,19 @@ class BinLocation extends Model
 
         return $binItemsWithExceptions;
     }
+
+    public function searchAcceptedItem($item)
+    {
+        $items = $this->getItems();
+
+        foreach($items as $binItem)
+        {
+            if($binItem['item']->name == $item->name)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

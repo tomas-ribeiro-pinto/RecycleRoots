@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Http\Controllers\PostcodesAPIController;
 use App\Models\Item;
 use App\Models\RecyclePoint;
 use Illuminate\Support\Facades\Http;
@@ -149,19 +150,19 @@ class RecyclePointsEditForm extends Component
         }
         else
         {
-            // Call Postcode.io API to fetch coordinates of postcode search
-            $response = Http::get('https://api.postcodes.io/postcodes/'. $this->postcode);
+            // Call Postcode.io API to fetch outcode of postcode search
+            $postcodeResponse = (new PostcodesAPIController)->searchPostcode($this->postcode);
+            $postcodeResponse = json_decode($postcodeResponse->content());
 
             // If the response is successful, get the latitude and longitude of the search location
-            if($response->status() == 200) {
-                $response = json_decode($response);
-                $this->lat = $response->result->latitude;
-                $this->lng = $response->result->longitude;
+            if($postcodeResponse->status == 200) {
+                $this->lat = $postcodeResponse->response->latitude;
+                $this->lng = $postcodeResponse->response->longitude;
                 $this->postcode = '';
                 $this->message = '';
                 $this->using_postcode = false;
             }
-            else if($response->status() == 404) {
+            else if($postcodeResponse->status == 404) {
                 $this->message = "Please enter a valid postcode.";
             }
             else {
