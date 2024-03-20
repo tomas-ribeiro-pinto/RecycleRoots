@@ -1,4 +1,4 @@
-<div class="border-2 {{count($recycleCentres) > 0 ? 'border-r_green-100' : 'border-gray-500'}} rounded-xl p-2 py-4">
+<div class="border-2 {{count($recycleCentres) > 0 ? 'border-r_green-100' : 'border-red-500'}} rounded-xl p-2 py-4">
     <div class="flex">
         @if(count($recycleCentres) > 0)
             <x-heroicon-s-check-circle class="h-16 text-r_green-100"/>
@@ -24,10 +24,10 @@
                 @endif
             </div>
         @else
-            <x-heroicon-s-question-mark-circle class="h-16 text-gray-500"/>
+            <x-heroicon-s-x-circle class="h-16 text-red-500"/>
             <div class="ml-2 my-auto">
                 <p class="text-xl font-medium">No Recycling Centres found</p>
-                <p class="text-lg">No close recycling centres that accept this item have been found</p>
+                <p class="text-lg">There are no recycling centres within 10 miles that accept this item</p>
             </div>
         @endif
     </div>

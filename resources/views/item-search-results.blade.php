@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="pt-10 bg-r_green-100 flex">
         <div class="ml-10 p-4 pb-8 rounded-2xl rounded-b-none bg-r_white">
-            <h1 class="font-medium text-2xl underline underline-offset-8 decoration-4 decoration-r_orange">Search Results</h1>
+            <h1 class="font-medium text-2xl underline underline-offset-8 decoration-4 decoration-r_orange">Recycle an Item</h1>
         </div>
     </div>
     <div class="min-h-screen bg-white">
@@ -38,8 +38,11 @@
                     </x-slot>
                     <x-slot name="slot">
                         <div class="grid grid-cols-1 gap-4 p-4 pt-16">
-                            <x-search-recycle-home-banner :search="$search" :bins="$homeBins" :isRecyclable="$isRecyclable"/>
-                            <x-search-recycle-at-centre-banner :search="$search" :bins="$homeBins" :recycleCentres="$recycleCentres" :isRecyclable="$isRecyclable"/>
+                            <x-search-recycle-home-banner :search="$search" :postcode="$postcode" :bins="$homeBins" :isRecyclable="$isRecyclable"/>
+                            <x-search-recycle-at-centre-banner :search="$search" :recycleCentres="$recycleCentres" :isRecyclable="$isRecyclable"/>
+                            @if($charities != null && count($charities) > 0)
+                                <x-search-charity-banner :search="$search" :charities="$charities"/>
+                            @endif
                         </div>
                     </x-slot>
                 </x-app-card>

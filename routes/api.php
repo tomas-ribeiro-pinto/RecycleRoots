@@ -63,6 +63,7 @@ Route::get('/charities', function (Request $request) {
 
 Route::get('/recycle-centres', function (Request $request) {
 
+    $item = $request->query('item');
     $postcode = $request->query('postcode');
 
     // Get all recycle points
@@ -104,20 +105,27 @@ Route::get('/recycle-centres', function (Request $request) {
 
     // If no recycle points are found within 10 miles of the search location, return a 404 status
     if($recyclePoints->isEmpty()) {
-        return response()->json(['status' => 404, 'message' => 'No recycle points found within 10 miles of the search location.'], 404);
+        return response()->json(['status' => 200, 'message' => 'No recycle points found within 10 miles of the search location.',
+            'postcode' => $postcodeResponse->response, 'response' => $recyclePoints], 200);
+    }
+
+    if ($item != null) {
+        $item = Item::where('name', $item)->first();
+        // Filter the recycle points to only display those that accept the item
+        $recyclePoints = $recyclePoints->filter(function($recyclePoint) use ($item) {
+            return $recyclePoint->items->contains($item);
+        });
     }
 
     return response()->json(['status' => 200, 'postcode' => $postcodeResponse->response, 'response' => $recyclePoints], 200);
 });
+
 
 Route::get('/recycle', function (Request $request) {
 
     $item = Item::where('name', $request->query('item'))->first();
     $postcode = $request->query('postcode');
 
-    if ($item == null) {
-        return response()->json(['status' => 404, 'message' => 'Item not found.'], 404);
-    }
     if ($postcode == null) {
         return response()->json(['status' => 404, 'message' => 'Please enter a valid postcode.'], 404);
     }
@@ -134,17 +142,35 @@ Route::get('/recycle', function (Request $request) {
         return $postcodeResponse;
     }
 
+    // If the item is not found, return empty response
+    if ($item == null) {
+        return response()->json(['status' => 200, 'postcode' => $postcodeResponse->response,
+            'response' => [
+                'bin_rules' => null,
+                'recycle_points' => null,
+                'charities' => null
+            ]], 200);
+    }
+
     $teamPostcode = TeamPostcode::where('postcode', $postcode)->first();
 
-    $binLocations = BinLocation::where('team_postcode_id', $teamPostcode->id)->get();
+    if($teamPostcode != null)
+    {
+        $binLocations = BinLocation::where('team_postcode_id', $teamPostcode->id)->get();
 
-    $binLocations = $binLocations->filter(function ($binLocation) use ($item) {
-        return $binLocation->searchAcceptedItem($item);
-    });
+        $binLocations = $binLocations->filter(function ($binLocation) use ($item) {
+            return $binLocation->searchAcceptedItem($item);
+        });
+    }
+    else
+    {
+        $binLocations = [];
+    }
 
 
     // Call API to fetch recycle centres that accept the item
     $request = Request::create('/api/recycle-centres', 'GET',[
+        'item' => $item->name,
         'postcode' => $postcode
     ]);
     $response = Route::dispatch($request);
@@ -165,7 +191,7 @@ Route::get('/recycle', function (Request $request) {
     $response = json_decode($response->getContent(), true);
 
     if($response['status'] == 200) {
-        $charities = array_slice($response['response'], 0, 3);
+        $charities = $response['response'];
     }
     else {
         return $response;

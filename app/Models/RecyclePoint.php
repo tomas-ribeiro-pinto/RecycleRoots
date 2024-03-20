@@ -15,4 +15,9 @@ class RecyclePoint extends Model
     {
         return $this->belongsToMany(Item::class);
     }
+
+    public function searchAcceptedItem($item)
+    {
+        return $this->items->contains($item);
+    }
 }

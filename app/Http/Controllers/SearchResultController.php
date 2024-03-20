@@ -38,8 +38,9 @@ class SearchResultController extends Controller
 
         // If the response is successful, get the bin locations for recycling at home
         if ($response->status == 200) {
-            $homeBins = $response->response->bin_rules;
-            $recycleCentres = $response->response->recycle_points;
+            $homeBins = $response->response->bin_rules ?? [];
+            $recycleCentres = $response->response->recycle_points ?? [];
+            $charities = $response->response->charities ?? [];
         }
         else if ($response->status == 404) {
             return back()->dangerBanner('Please enter a valid postcode.');
@@ -53,12 +54,13 @@ class SearchResultController extends Controller
         $homeBins = json_decode($homeBins, true);
 
         // Check if the bins can be used to recycle the item
-        $isRecyclable = $this->checkIfRecyclable($homeBins);
-
-        if ($isRecyclable) {
-            $homeBins = array_filter($homeBins, function($bin) {
-                return $bin['bin']['is_recycle_bin'];
-            });
+        if($homeBins != []) {
+            $isRecyclable = $this->checkIfRecyclable($homeBins);
+            if ($isRecyclable) {
+                $homeBins = array_filter($homeBins, function($bin) {
+                    return $bin['bin']['is_recycle_bin'];
+                });
+            }
         }
 
         return view('item-search-results', [
@@ -66,7 +68,8 @@ class SearchResultController extends Controller
             'postcode' => $postcode,
             'homeBins' => $homeBins,
             'recycleCentres' => $recycleCentres,
-            'isRecyclable' => $isRecyclable
+            'charities' => $charities,
+            'isRecyclable' => $isRecyclable ?? false
         ]);
     }
 

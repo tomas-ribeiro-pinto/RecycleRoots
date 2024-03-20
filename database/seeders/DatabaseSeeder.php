@@ -4,10 +4,12 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Bin;
+use App\Models\BinLocation;
 use App\Models\Item;
 use App\Models\ItemType;
 use App\Models\RecyclePoint;
 use App\Models\Team;
+use App\Models\TeamPostcode;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -189,6 +191,16 @@ class DatabaseSeeder extends Seeder
 
         $templatesSeeder = new TemplatesSeeder();
         $templatesSeeder->run();
+
+        foreach(TeamPostcode::all() as $teamPostcode) {
+            foreach (Bin::all() as $bin) {
+                $binLocation = BinLocation::create([
+                    'bin_id' => $bin->id,
+                    'team_postcode_id' => $teamPostcode->id,
+                ]);
+                $binLocation->save();
+            }
+        }
     }
 
     public function findItem($name, $items)
