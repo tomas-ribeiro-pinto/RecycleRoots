@@ -1,4 +1,4 @@
-<form class="mt-4 md:mt-10 mb-4" method="GET" action="{{route('item-search')}}">
+<form class="md:mt-10 mb-4" method="GET" action="{{route('item-search')}}">
     <div class="flex-row lg:flex">
         <div class="flex-1 lg:grid-cols-2 flex-row lg:flex relative">
             <div class="flex-1 rounded-xl border-2 lg:border-r-0 border-gray-300 shadow-sm bg-white">

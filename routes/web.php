@@ -30,3 +30,7 @@ Route::get('/search', [SearchResultController::class, 'index'])->name('item-sear
 Route::get('/blog', function () {
     return view('blog');
 })->name('blog');
+
+Route::get('/about-us', function () {
+    return view('blog');
+})->name('about-us');

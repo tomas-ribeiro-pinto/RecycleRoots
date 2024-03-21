@@ -4,7 +4,7 @@
         <div>
             <p class="text-sm ml-2">Distance: {{$recyclePoint->distance_in_miles}} miles</p>
         </div>
-        <div class="flex-row my-auto ml-1">
+        <div class="flex-row my-auto ml-1 mt-4 col-span-full md:col-span-1 lg:col-span-full xl:flex xl:gap-1 xl:col-start-2">
             <a href="{{$recyclePoint->website}}" target="blank" rel="noreferrer noopener" class="md:w-auto w-full px-4 py-2 text-md text-white bg-black rounded-2xl border-2 border-black hover:bg-gray-900">See Details</a>
             <a href="{{"https://www.google.com/maps/dir//" . $recyclePoint->lat . "," . $recyclePoint->lng}}" target="blank" rel="noreferrer noopener" class="md:w-auto w-full px-4 py-2 text-md text-white bg-r_green-200 rounded-2xl border-2 border-r_green-100 hover:bg-green-800">Directions</a>
         </div>

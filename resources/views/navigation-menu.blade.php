@@ -18,7 +18,7 @@
                     <x-nav-link href="{{ route('blog') }}" :active="request()->routeIs('blog')">
                         {{ __('Blog') }}
                     </x-nav-link>
-                    <x-nav-link href="" :active="request()->routeIs('about-us')">
+                    <x-nav-link href="{{ route('about-us') }}" :active="request()->routeIs('about-us')">
                         {{ __('About Us') }}
                     </x-nav-link>
                 </div>
@@ -45,7 +45,7 @@
             <x-responsive-nav-link href="{{ route('blog') }}" :active="request()->routeIs('blog')">
                 {{ __('Blog') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('about-us')">
+            <x-responsive-nav-link href="{{ route('about-us') }}" :active="request()->routeIs('about-us')">
                 {{ __('About Us') }}
             </x-responsive-nav-link>
         </div>

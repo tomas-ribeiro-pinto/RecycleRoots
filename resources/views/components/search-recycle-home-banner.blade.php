@@ -1,6 +1,6 @@
 @if(count($bins) == 0)
     <div class="border-2 border-gray-500 rounded-xl p-2 py-4">
-        <div class="flex">
+        <div class="flex-row sm:flex">
             <x-heroicon-s-question-mark-circle class="h-16 text-gray-500"/>
             <div class="flex-1 ml-2 my-auto">
                 <p class="text-xl font-medium">No information found</p>
@@ -17,8 +17,8 @@
 @elseif(count($bins) < 2)
     <div class="border-2 {{$isRecyclable ? 'border-r_green-100' : 'border-red-500'}} rounded-xl p-2 pt-4">
         <div class="grid grid-cols-6">
-            <div class="col-span-4">
-                <div class="flex">
+            <div class="col-span-full sm:col-span-4">
+                <div class="flex-row sm:flex">
                     @if($isRecyclable)
                         <x-heroicon-s-check-circle class="h-16 text-r_green-100"/>
                         <div class="ml-2 my-auto">
@@ -34,7 +34,7 @@
                     @endif
                 </div>
             </div>
-            <div class="col-span-2 flex justify-end mr-4">
+            <div class="col-span-full sm:col-span-2 flex justify-center sm:justify-end sm:mr-4">
                 @if(count($bins) != 0)
                     <x-search-recycle-bin-card :bin="$bins[array_key_first($bins)]['bin']"/>
                 @endif
@@ -43,7 +43,7 @@
     </div>
 @else
     <div class="border-2 {{$isRecyclable ? 'border-r_green-100' : 'border-red-500'}} rounded-xl p-2 pt-4">
-        <div class="flex">
+        <div class="flex-row sm:flex">
             <x-heroicon-s-check-circle class="h-16 {{$isRecyclable ? 'text-r_green-100' : 'text-red-500'}}"/>
             <div class="ml-2 my-auto">
                 @if($isRecyclable)
@@ -52,7 +52,7 @@
                     <p class="text-xl font-medium">Do not recycle at home</p>
                 @endif
                 <p class="text-lg">Dispose of {{$search}} using one of the following bins:</p>
-                <div class="grid grid-cols-4 gap-4 m-4">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 m-4">
                     @foreach($bins as $bin)
                         <x-search-recycle-bin-card :bin="$bin['bin']"/>
                     @endforeach
