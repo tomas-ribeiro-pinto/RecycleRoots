@@ -1,4 +1,4 @@
-<div class="col-span-5 ml-4 px-2">
+<div class="col-span-full md:col-span-8 md:col-start-3 mt-10 lg:mt-0 lg:col-span-5 md:ml-4 px-2">
     <h3 class="text-lg font-medium">{{$label}}</h3>
     <div class="mt-4 flex justify-end gap-2">
         <div x-data="{ searchEmpty: @entangle('searchEmpty')}">

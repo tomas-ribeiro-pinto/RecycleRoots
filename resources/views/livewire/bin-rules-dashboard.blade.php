@@ -1,7 +1,7 @@
 <div class="" x-data="{ filterEmpty: @entangle('filterEmpty')}">
     <a href="{{route('bin-rules')}}/add" class="btn rounded-md px-3 py-2 text-center text-sm font-semibold text-white shadow-sm bg-r_green-200 hover:text-gray-100">Add Bin Rule</a>
 
-    <div class="flex rounded-md shadow-sm bg-gray-300 float-right">
+    <div class="flex rounded-md shadow-sm bg-gray-300 mt-3 sm:mt-0 sm:float-right">
         <div class="m-auto mx-3 ">
             <x-search-icon class="w-5 h-5 text-r_green-200"/>
         </div>
@@ -26,7 +26,7 @@
     <div class="pt-10">
         <h2 class="font-medium text-2xl">Your Postcodes:</h2>
     </div>
-    <div class="py-6 grid grid-cols-6 gap-2 gap-y-6 w-full">
+    <div class="py-6 grid grid-cols-3 md:grid-cols-6 gap-2 gap-y-6 w-full">
         @foreach($this->postcodes as $postcode)
             <a href="{{route('bin-rules') . '/' . $postcode->postcode}}">
                 <div class="flex p-7 bg-r_orange rounded-lg justify-center items-center hover:shadow-md hover:bg-opacity-80">

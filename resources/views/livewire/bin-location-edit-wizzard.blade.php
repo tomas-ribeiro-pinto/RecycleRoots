@@ -1,5 +1,5 @@
 <div class="grid grid-cols-8">
-    <div class="col-span-2">
+    <div class="col-span-full md:col-span-4 lg:col-span-2">
         <p class="font-medium">Bin Postcodes</p>
         <div class="bg-gray-200 mt-4 p-6 py-4 rounded-lg border-2 border-gray-400 border-opacity-60 relative z-0">
             <p class="text-sm">Setting rules for:</p>
@@ -76,7 +76,7 @@
             </x-button>
         </div>
     </div>
-    <div class="col-span-5 col-start-4 max-h-screen">
+    <div class="col-span-full lg:col-span-5 lg:col-start-4 max-h-screen">
         <livewire:edit-items-to-bin :selectedBin="$this->selectedBin" :postcode="$this->postcode" key="{{ now() }}"/>
     </div>
 </div>

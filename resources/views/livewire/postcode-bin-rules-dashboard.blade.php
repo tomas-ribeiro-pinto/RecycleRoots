@@ -6,17 +6,28 @@
         <h3 class="font-medium">Bins in {{$postcode->postcode}}:</h3>
         <div class="mt-4 grid grid-cols-10">
             @if($binLocations->count() > 0)
-                <div class="col-span-1 max-h-screen p-4 rounded-md flex-row bg-gray-200 border-2 border-gray-400 border-opacity-60 overflow-y-scroll">
-                    @foreach($binLocations as $binLocation)
-                        <div class="mt-2">
-                            <x-bin-card :isLocation="true" :bin="$binLocation" :selectedBin="$selectedBin" key="{{ now() }}"/>
-                        </div>
-                    @endforeach
+                <div class="hidden xl:block col-span-full gap-4 overflow-scroll xl:col-span-1 xl:max-h-screen p-4 rounded-md bg-gray-200 border-2 border-gray-400 border-opacity-60">
+                    <div class="flex-row">
+                        @foreach($binLocations as $binLocation)
+                            <div class="mt-2">
+                                <x-bin-card :isLocation="true" :bin="$binLocation" :selectedBin="$selectedBin" key="{{ now() }}"/>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="block xl:hidden col-span-full gap-4 overflow-scroll xl:col-span-1 xl:max-h-screen p-4 rounded-md bg-gray-200 border-2 border-gray-400 border-opacity-60">
+                    <div class="flex gap-4">
+                        @foreach($binLocations as $binLocation)
+                            <div class="mt-2">
+                                <x-bin-card :isLocation="true" :bin="$binLocation" :selectedBin="$selectedBin" key="{{ now() }}"/>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             @endif
-            <div class="ml-8 col-span-6">
+            <div class="mt-6 xl:mt-0 xl:ml-8 col-span-full xl:col-span-6">
                 <div class="grid grid-cols-12">
-                    <div class="col-span-4">
+                    <div class="col-span-full md:col-span-6 xl:col-span-4">
                         <p class="my-4 font-medium">Items accepted in this Bin:</p>
                         <div class="mb-1 grid grid-cols-6">
                             <div class="col-span-5" x-data="{ filterEmpty: @entangle('filterEmpty')}">
@@ -56,7 +67,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-span-6 col-start-6">
+                    <div class="mt-6 xl:mt-0 col-span-full md:col-span-6 md:col-start-8 xl:col-span-6 xl:col-start-6">
                         <p class="font-medium">Bin Details:</p>
                         <div class="flex gap-4 bg-gray-200 mt-4 p-6 py-4 rounded-lg border-2 border-gray-400 border-opacity-60 relative">
                             <div class="flex justify-center">
@@ -83,7 +94,7 @@
             </div>
         </div>
     @else
-        <div class="w-1/3 border-2 border-dashed border-gray-300 rounded-2xl p-3 py-8">
+        <div class="lg:w-1/3 border-2 border-dashed border-gray-300 rounded-2xl p-3 py-8">
             <div class="flex justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-r_green-200">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />

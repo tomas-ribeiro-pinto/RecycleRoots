@@ -1,5 +1,5 @@
 <div class="grid grid-cols-8">
-    <div class="col-span-2">
+    <div class="col-span-full md:col-span-3 lg:col-span-2">
         <p class="font-medium">Bin Postcodes</p>
         <div class="mt-4">
             <div class="flex rounded-md shadow-sm bg-gray-300">
@@ -103,14 +103,14 @@
                 @endif
             </div>
         </div>
-        <div class="mt-4 flex justify-end">
+        <div class="hidden lg:flex mt-4 justify-end">
             <button wire:click="addBin" {{$submitDisabled ? 'disabled' : ''}}
                     class="btn rounded-md px-3 py-2 text-center text-sm font-semibold shadow-sm {{$submitDisabled ? 'text-gray-500 bg-warmGray-300 hover:cursor-not-allowed' : 'text-white bg-r_green-200 hover:text-gray-100'}}">
                 Add Bin Rule
             </button>
         </div>
     </div>
-    <div class="col-span-5 col-start-4 max-h-screen">
+    <div class="mt-8 lg:mt-0 col-span-full lg:col-span-5 lg:col-start-4 max-h-screen">
         <p class="font-medium">Select Bin from Template</p>
         <div class="">
             <div class="flex justify-end -mb-4 mr-2">
@@ -132,6 +132,14 @@
                 @endif
             </div>
         </div>
-        <livewire:add-items-to-bin :selectedBin="$this->selectedBin" :postcodes="$this->postcodes" key="{{ now() }}"/>
+        <div class="mt-4">
+            <livewire:add-items-to-bin :selectedBin="$this->selectedBin" :postcodes="$this->postcodes" key="{{ now() }}"/>
+        </div>
+        <div class="lg:hidden mt-4 flex justify-end">
+            <button wire:click="addBin" {{$submitDisabled ? 'disabled' : ''}}
+            class="btn rounded-md px-3 py-2 text-center text-sm font-semibold shadow-sm {{$submitDisabled ? 'text-gray-500 bg-warmGray-300 hover:cursor-not-allowed' : 'text-white bg-r_green-200 hover:text-gray-100'}}">
+                Add Bin Rule
+            </button>
+        </div>
     </div>
 </div>

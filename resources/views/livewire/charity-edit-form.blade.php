@@ -1,5 +1,5 @@
 <div class="px-10 grid grid-cols-12 pb-8">
-    <div class="col-span-7 flex">
+    <div class="col-span-full lg:col-span-7 flex">
         <div class="flex-1">
             <div class="flex justify-end">
                 <div x-data="{ show: false}">
@@ -75,7 +75,7 @@
                 </div>
             </form>
         </div>
-        <div class="ml-5 inline-block h-full min-h-[1em] w-0.5 self-stretch bg-black/10"></div>
+        <div class="hidden ml-5 lg:inline-block h-full min-h-[1em] w-0.5 self-stretch bg-black/10"></div>
     </div>
 
     <livewire:add-item-to-model-menu

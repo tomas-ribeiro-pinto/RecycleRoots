@@ -1,5 +1,5 @@
 <div class="px-10 grid grid-cols-11 pb-8">
-    <div class="col-span-3 flex">
+    <div class="col-span-full md:col-span-6 lg:col-span-3 flex">
         <div class="flex-1">
             <div class="mt-8 max-w-xl text-sm text-gray-600">
                 <p class="text-sm"><span class="text-r_orange sups">*</span> Required Field</p>
@@ -33,7 +33,7 @@
             </div>
         </div>
     </div>
-    <div class="col-span-5 px-2 ml-8">
+    <div class="col-span-full md:col-span-5 px-2 mt-8 md:mt-0 md:ml-8">
         <h3 class="text-lg font-medium">Add items accepted in this bin</h3>
         <div class="mt-4 flex justify-end gap-2">
             <div x-data="{ searchEmpty: @entangle('searchEmpty')}">
@@ -143,13 +143,14 @@
                 @endforeach
             </div>
         </div>
-        <div class="flex gap-2 mt-4 justify-end">
-            <x-button wire:click="addBin">
-                {{ __('Create Template') }}
-            </x-button>
+        <div class="hidden md:flex mt-4 justify-end">
+            <button wire:click="addBin"
+                    class="btn rounded-md px-3 py-2 text-center text-sm font-semibold shadow-sm text-white bg-r_green-200 hover:text-gray-100">
+                Create Template
+            </button>
         </div>
     </div>
-    <div class="ml-8 col-span-3">
+    <div class="mt-8 col-span-full md:col-span-5 lg:mt-0 lg:ml-8 lg:col-span-3">
         <p class="font-medium">Bin Details</p>
         <div class="flex gap-4 bg-gray-200 mt-4 p-6 py-4 rounded-lg border-2 border-gray-400 border-opacity-60 relative">
             @if($color != null)
@@ -182,6 +183,12 @@
                     <h3 class="text-lg text-r_green-200 font-medium">Please select a color to view details</h3>
                 </div>
             @endif
+        </div>
+        <div class="flex md:hidden mt-4 justify-end">
+            <button wire:click="addBin"
+                    class="btn rounded-md px-3 py-2 text-center text-sm font-semibold shadow-sm text-white bg-r_green-200 hover:text-gray-100">
+                Create Template
+            </button>
         </div>
     </div>
 </div>

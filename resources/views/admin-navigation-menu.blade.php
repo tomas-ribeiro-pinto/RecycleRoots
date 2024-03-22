@@ -11,7 +11,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 lg:-my-px lg:ms-10 lg:flex">
                     <x-admin-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-admin-nav-link>
@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden lg:flex sm:items-center sm:ms-6">
                 <a href="{{route('home')}}" target="_blank" rel="noopener noreferrer" class="text-white text-sm hover:underline hover:text-gray-300">
                     Visit website
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 inline my-auto">
@@ -84,25 +84,6 @@
                                 <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
                                     {{ __('Team Settings') }}
                                 </x-dropdown-link>
-
-{{--                                @can('create', Laravel\Jetstream\Jetstream::newTeamModel())--}}
-{{--                                    <x-dropdown-link href="{{ route('teams.create') }}">--}}
-{{--                                        {{ __('Create New Team') }}--}}
-{{--                                    </x-dropdown-link>--}}
-{{--                                @endcan--}}
-
-{{--                                <!-- Team Switcher -->--}}
-{{--                                @if (Auth::user()->allTeams()->count() > 1)--}}
-{{--                                    <div class="border-t border-gray-200"></div>--}}
-
-{{--                                    <div class="block px-4 py-2 text-xs text-gray-400">--}}
-{{--                                        {{ __('Switch Teams') }}--}}
-{{--                                    </div>--}}
-
-{{--                                    @foreach (Auth::user()->allTeams() as $team)--}}
-{{--                                        <x-switchable-team :team="$team" />--}}
-{{--                                    @endforeach--}}
-{{--                                @endif--}}
                             </div>
 
                             <div class="border-t border-gray-200"></div>
@@ -123,7 +104,7 @@
             </div>
 
             <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
+            <div class="-me-2 flex items-center lg:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -135,10 +116,19 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden lg:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-admin-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-admin-nav-link>
+            <x-responsive-admin-nav-link href="{{ route('recycle-centres') }}" :active="request()->routeIs('recycle-centres')">
+                {{ __('Recycle Centres') }}
+            </x-responsive-admin-nav-link>
+            <x-responsive-admin-nav-link href="{{ route('bin-rules') }}" :active="request()->routeIs('bin-rules')">
+                {{ __('Bin Rules') }}
+            </x-responsive-admin-nav-link>
+            <x-responsive-admin-nav-link href="{{ route('charities') }}" :active="request()->routeIs('charities')">
+                {{ __('Charities') }}
             </x-responsive-admin-nav-link>
         </div>
 
@@ -161,15 +151,6 @@
                 <!-- Account Management -->
                 <x-responsive-admin-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     {{ __('Profile') }}
-                </x-responsive-admin-nav-link>
-                <x-responsive-admin-nav-link href="{{ route('recycle-centres') }}" :active="request()->routeIs('recycle-centres')">
-                    {{ __('Recycle Centres') }}
-                </x-responsive-admin-nav-link>
-                <x-responsive-admin-nav-link href="{{ route('bin-rules') }}" :active="request()->routeIs('bin-rules')">
-                    {{ __('Bin Rules') }}
-                </x-responsive-admin-nav-link>
-                <x-responsive-admin-nav-link href="{{ route('charities') }}" :active="request()->routeIs('charities')">
-                    {{ __('Charities') }}
                 </x-responsive-admin-nav-link>
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

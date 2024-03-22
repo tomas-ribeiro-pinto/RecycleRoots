@@ -149,33 +149,37 @@ class AddBinForm extends Component
     public function addBin()
     {
         $this->clearFilter();
-        $this->assessSubmit();
-
-        $this->model->save();
-        foreach ($this->modelItems as $modelItem)
+        if($this->canSubmit())
         {
-            $this->model->items()->attach($modelItem->id);
+            $this->model->save();
+            foreach ($this->modelItems as $modelItem)
+            {
+                $this->model->items()->attach($modelItem->id);
+            }
+            session()->flash('message', "Bin Added!");
+
+            return redirect(route('bin-rules') . '/add');
         }
-        session()->flash('message', "Bin Added!");
-        return redirect(route('bin-rules') . '/add');
+
+        return back();
     }
 
-    public function assessSubmit()
+    public function canSubmit()
     {
         if($this->name == null || $this->name == '')
         {
             session()->flash('error', "Name is required!");
-            return;
+            return false;
         }
         if($this->color == null || $this->color == '')
         {
             session()->flash('error', "Color is required!");
-            return;
+            return false;
         }
         if($this->dimensions == null || $this->dimensions == '')
         {
             session()->flash('error', "Dimensions are required!");
-            return;
+            return false;
         }
 
         $this->model->name = $this->name;
@@ -184,5 +188,7 @@ class AddBinForm extends Component
         $this->model->is_recycle_bin = $this->is_recycle_bin;
         $this->model->is_template = true;
         $this->model->team_id = auth()->user()->currentTeam->id;
+
+        return true;
     }
 }

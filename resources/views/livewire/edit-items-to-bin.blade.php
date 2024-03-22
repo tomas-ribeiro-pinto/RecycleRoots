@@ -2,7 +2,7 @@
     @if($selectedBin != null)
         <p class="my-4 font-medium">Items accepted in this Bin:</p>
         <div class="mb-1 grid grid-cols-6">
-            <div class="col-span-3" x-data="{ filterEmpty: @entangle('filterEmpty')}">
+            <div class="col-span-4 sm:col-span-3" x-data="{ filterEmpty: @entangle('filterEmpty')}">
                 <div class="flex rounded-md shadow-sm bg-gray-300">
                     <input
                             wire:model.live="filter"
@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-span-4 col-start-8 mt-4 flex justify-end gap-2">
+            <div class="col-span-full sm:col-span-4 sm:col-start-8 mt-4 flex justify-end gap-2">
                 <div x-data="{ searchEmpty: @entangle('searchEmpty')}">
                     @if(Session::has('message'))
                         <x-flash-message :message="session('message')"/>
@@ -80,7 +80,7 @@
             </div>
         </div>
         <div class="grid grid-cols-6">
-            <div class="max-h-56 col-span-3 px-4 py-2 rounded-md flex-row divide-y gap-6 bg-gray-200 border-2 border-gray-400 border-opacity-60 overflow-x-scroll">
+            <div class="max-h-56 mt-4 col-span-full sm:col-span-3 px-4 py-2 rounded-md flex-row divide-y gap-6 bg-gray-200 border-2 border-gray-400 border-opacity-60 overflow-x-scroll">
                 @if(count($selectedBinItems) > 0)
                     @foreach($selectedBinItems as $item)
                         <div class="flex justify-between items-center py-1">
