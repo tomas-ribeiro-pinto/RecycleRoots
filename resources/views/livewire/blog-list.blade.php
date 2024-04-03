@@ -3,7 +3,7 @@
         <div class="flex col-start-6 rounded-md shadow-sm bg-gray-300">
             <input
                     wire:model.live="filter"
-                    placeholder="Filter articles"
+                    placeholder="Search for articles"
                     type="text"
                     class="block w-full border-gray-300 shadow-sm transition duration-150 ease-in-out sm:text-sm sm:leading-5 {{$this->filterEmpty ? 'rounded-md' : 'rounded-l-md' }} focus:ring-0 focus:border-gray-300"
             />

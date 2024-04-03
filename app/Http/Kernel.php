@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\hasAdminRole;
 use App\Http\Middleware\HasTeam;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -62,6 +63,7 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'hasTeam' => \App\Http\Middleware\HasTeam::class,
+        'hasAdminRole' => HasAdminRole::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'precognitive' => \Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests::class,
         'signed' => \App\Http\Middleware\ValidateSignature::class,

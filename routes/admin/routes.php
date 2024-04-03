@@ -6,6 +6,7 @@ use App\Http\Controllers\ModelControllers\CharityController;
 use App\Http\Controllers\ModelControllers\RecyclePointController;
 use Illuminate\Support\Facades\Route;
 
+// Routes for basic admin role (e.g. blog editor)
 Route::middleware([
     'auth:sanctum',
     'hasTeam',
@@ -16,6 +17,20 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
+    Route::get('/edit-blog', function () {
+        return view('blog-menu');
+    })->name('edit-blog');
+
+});
+
+// Routes for Full Admin Role
+Route::middleware([
+    'auth:sanctum',
+    'hasTeam',
+    'hasAdminRole',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
     Route::get('/recycle-centres', [RecyclePointController::class, 'index'])->name('recycle-centres');
     Route::post('/recycle-centres/add', [RecyclePointController::class, 'create']);
     Route::get('/recycle-centres/{recycleCentre}', [RecyclePointController::class, 'show']);

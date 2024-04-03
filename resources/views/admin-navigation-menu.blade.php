@@ -12,18 +12,24 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 lg:-my-px lg:ms-10 lg:flex">
-                    <x-admin-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-admin-nav-link>
-                    <x-admin-nav-link href="{{ route('recycle-centres') }}" :active="request()->routeIs('recycle-centres')">
-                        {{ __('Recycle Centres') }}
-                    </x-admin-nav-link>
-                    <x-admin-nav-link href="{{ route('bin-rules') }}" :active="request()->routeIs('bin-rules')">
-                        {{ __('Bin Rules') }}
-                    </x-admin-nav-link>
-                    <x-admin-nav-link href="{{ route('charities') }}" :active="request()->routeIs('charities')">
-                        {{ __('Charities') }}
-                    </x-admin-nav-link>
+                    @if(auth()->user()->hasTeamRole(auth()->user()->currentTeam, 'admin'))
+                        <x-admin-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-admin-nav-link>
+                        <x-admin-nav-link href="{{ route('recycle-centres') }}" :active="request()->routeIs('recycle-centres')">
+                            {{ __('Recycle Centres') }}
+                        </x-admin-nav-link>
+                        <x-admin-nav-link href="{{ route('bin-rules') }}" :active="request()->routeIs('bin-rules')">
+                            {{ __('Bin Rules') }}
+                        </x-admin-nav-link>
+                        <x-admin-nav-link href="{{ route('charities') }}" :active="request()->routeIs('charities')">
+                            {{ __('Charities') }}
+                        </x-admin-nav-link>
+                    @else
+                        <x-admin-nav-link href="{{ route('edit-blog') }}" :active="request()->routeIs('edit-blog')">
+                            {{ __('Manage Blog') }}
+                        </x-admin-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -118,18 +124,24 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden lg:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-admin-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-admin-nav-link>
-            <x-responsive-admin-nav-link href="{{ route('recycle-centres') }}" :active="request()->routeIs('recycle-centres')">
-                {{ __('Recycle Centres') }}
-            </x-responsive-admin-nav-link>
-            <x-responsive-admin-nav-link href="{{ route('bin-rules') }}" :active="request()->routeIs('bin-rules')">
-                {{ __('Bin Rules') }}
-            </x-responsive-admin-nav-link>
-            <x-responsive-admin-nav-link href="{{ route('charities') }}" :active="request()->routeIs('charities')">
-                {{ __('Charities') }}
-            </x-responsive-admin-nav-link>
+            @if(auth()->user()->hasTeamRole(auth()->user()->currentTeam, 'admin'))
+                <x-responsive-admin-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    {{ __('Dashboard') }}
+                </x-responsive-admin-nav-link>
+                <x-responsive-admin-nav-link href="{{ route('recycle-centres') }}" :active="request()->routeIs('recycle-centres')">
+                    {{ __('Recycle Centres') }}
+                </x-responsive-admin-nav-link>
+                <x-responsive-admin-nav-link href="{{ route('bin-rules') }}" :active="request()->routeIs('bin-rules')">
+                    {{ __('Bin Rules') }}
+                </x-responsive-admin-nav-link>
+                <x-responsive-admin-nav-link href="{{ route('charities') }}" :active="request()->routeIs('charities')">
+                    {{ __('Charities') }}
+                </x-responsive-admin-nav-link>
+            @else
+                <x-responsive-admin-nav-link href="{{ route('edit-blog') }}" :active="request()->routeIs('edit-blog')">
+                    {{ __('Manage Blog') }}
+                </x-responsive-admin-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
