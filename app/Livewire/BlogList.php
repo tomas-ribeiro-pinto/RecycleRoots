@@ -22,7 +22,7 @@ class BlogList extends Component
         $this->articles = $articles;
         // Current Articles (filtered or not)
         $this->currentArticles = $articles;
-        $this->ARTICLES_PER_PAGE = 2;
+        $this->ARTICLES_PER_PAGE = 12;
         $this->clearFilter();
     }
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminBlogController;
 use App\Http\Controllers\ModelControllers\BinController;
 use App\Http\Controllers\ModelControllers\BinLocationController;
 use App\Http\Controllers\ModelControllers\CharityController;
@@ -17,10 +18,14 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/edit-blog', function () {
-        return view('blog-menu');
-    })->name('edit-blog');
+    Route::get('/edit-blog', [AdminBlogController::class, 'index'])
+        ->name('edit-blog');
 
+    Route::get('/edit-blog/add', [AdminBlogController::class, 'create'])
+        ->name('edit-blog.add');
+
+    Route::get('/edit-blog/edit', [AdminBlogController::class, 'edit'])
+        ->name('edit-blog.edit');
 });
 
 // Routes for Full Admin Role
