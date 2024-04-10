@@ -16,7 +16,7 @@ class hasAdminRole
     public function handle(Request $request, Closure $next): Response
     {
         // If admin user does not have full administrator permission throw forbidden error message
-        if(!auth()->user()->hasTeamRole(auth()->user()->currentTeam, 'admin'))
+        if(!auth()->user()->isFullAdmin())
         {
             abort(403);
         }

@@ -25,4 +25,9 @@ class Item extends Model
     {
         return $this->belongsToMany(Charity::class);
     }
+
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class);
+    }
 }

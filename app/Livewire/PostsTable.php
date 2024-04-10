@@ -21,7 +21,7 @@ class PostsTable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setPerPageVisibilityDisabled();
-        $this->setDefaultPerPage(10);
+        $this->setDefaultPerPage(25);
         $this->setPaginationEnabled();
         $this->setColumnSelectStatus(false);
         $this->setEmptyMessage('No articles have been added yet');
@@ -51,7 +51,7 @@ class PostsTable extends DataTableComponent
                 ->label(
                     fn($row, Column $column) =>
                     view('components.blog-editor-table-action-buttons',
-                        ['row' => $row ])
+                        ['post' => $row ])
                 ),
         ];
     }

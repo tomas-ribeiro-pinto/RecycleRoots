@@ -15,6 +15,7 @@
         "prettier": "^3.2.5",
         "prettier-plugin-tailwindcss": "^0.5.11",
         "tailwindcss": "^3.1.0",
+        "trix": "^2.0.10",
         "vite": "^5.0.0"
     }
 }

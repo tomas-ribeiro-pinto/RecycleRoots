@@ -23,9 +23,11 @@ Route::middleware([
 
     Route::get('/edit-blog/add', [AdminBlogController::class, 'create'])
         ->name('edit-blog.add');
+    Route::post('/edit-blog/add', [AdminBlogController::class, 'store']);
 
-    Route::get('/edit-blog/edit', [AdminBlogController::class, 'edit'])
+    Route::get('/edit-blog/edit/{post:slug}', [AdminBlogController::class, 'edit'])
         ->name('edit-blog.edit');
+    Route::post('/edit-blog/edit/{post:slug}', [AdminBlogController::class, 'update']);
 });
 
 // Routes for Full Admin Role

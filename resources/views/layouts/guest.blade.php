@@ -19,6 +19,7 @@
 
         <!-- Styles -->
         @livewireStyles
+        <x-rich-text::styles theme="richtextlaravel" data-turbo-track="false" />
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">

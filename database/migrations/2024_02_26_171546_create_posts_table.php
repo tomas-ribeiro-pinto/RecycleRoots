@@ -17,7 +17,6 @@ return new class extends Migration
                 ->constrained();
             $table->string('slug')->unique();
             $table->string('title');
-            $table->string('excerpt');
             $table->longText('body');
             $table->string('thumbnail_path');
             $table->timestamps();
