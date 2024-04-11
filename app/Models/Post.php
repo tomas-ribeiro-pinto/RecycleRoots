@@ -17,13 +17,6 @@ class Post extends Model
         'body' => AsRichTextContent::class,
     ];
 
-//    protected function body(): Attribute
-//    {
-//        return Attribute::make(
-//            get: fn ($value) => $value->body->render(),
-//        );
-//    }
-
     public function categories()
     {
         return $this->belongsToMany(Category::class);

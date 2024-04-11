@@ -15,6 +15,7 @@
         "larswiegers/laravel-maps": "^0.18.0",
         "livewire/livewire": "^3.0",
         "rappasoft/laravel-livewire-tables": "^3.2",
+        "symfony/html-sanitizer": "^7.0",
         "tonysm/rich-text-laravel": "^3.0"
     },
     "require-dev": {

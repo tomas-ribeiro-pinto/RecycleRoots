@@ -6,6 +6,7 @@ use App\Models\BinLocation;
 use App\Models\Charity;
 use App\Models\Item;
 use App\Models\ItemType;
+use App\Models\Post;
 use App\Models\RecyclePoint;
 use App\Models\TeamPostcode;
 use Illuminate\Http\Request;
@@ -197,10 +198,38 @@ Route::get('/recycle', function (Request $request) {
         return $response;
     }
 
+    // Call API to fetch blog articles
+    $request = Request::create('/api/blog', 'GET',[
+        'item' => $item->name
+    ]);
+    $response = Route::dispatch($request);
+    $response = json_decode($response->getContent(), true);
+
+    if($response['status'] == 200) {
+        $articles = $response['response'];
+    }
+
     return response()->json(['status' => 200, 'postcode' => $postcodeResponse->response,
         'response' => [
             'bin_rules' => $binLocations,
             'recycle_points' => $recyclePoints,
-            'charities' => $charities
+            'charities' => $charities,
+            'articles' => $articles ?? []
         ]], 200);
+});
+
+// Route to fetch blog articles
+Route::get('/blog', function (Request $request) {
+
+    $item = Item::where('name', $request->query('item'))->first();
+    $articles = Post::all()->sortByDesc('updated_at');
+
+    // If the item is found, return tailored articles
+    if ($item != null) {
+        $articles = $item->posts->sortByDesc('updated_at');
+
+        return response()->json(['status' => 200, 'response' => $articles, 'item' => $item], 200);
+    }
+
+    return response()->json(['status' => 200, 'response' => $articles, 'item' => null], 200);
 });

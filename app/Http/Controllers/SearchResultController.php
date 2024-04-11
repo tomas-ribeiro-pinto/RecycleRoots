@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bin;
 use App\Models\BinLocation;
+use App\Models\Post;
 use App\Models\TeamPostcode;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -41,6 +42,7 @@ class SearchResultController extends Controller
             $homeBins = $response->response->bin_rules ?? [];
             $recycleCentres = $response->response->recycle_points ?? [];
             $charities = $response->response->charities ?? [];
+            $articles = $response->response->articles ?? [];
         }
         else if ($response->status == 404) {
             return back()->dangerBanner('Please enter a valid postcode.');
@@ -52,6 +54,28 @@ class SearchResultController extends Controller
         // Ensure return is an array and not a StdClass object
         $homeBins = json_encode($homeBins);
         $homeBins = json_decode($homeBins, true);
+
+        $articles = json_encode($articles);
+        $articles = json_decode($articles, true);
+
+        $newArticles = collect();
+        foreach ($articles as $article)
+        {
+            $object = new Post([
+                'id' => $article['id'],
+                'user_id' => $article['user_id'],
+                'title' => $article['title'],
+                'slug' => $article['slug'],
+                'thumbnail_path' => $article['thumbnail_path'],
+                'is_published' => $article['is_published'],
+                'created_at' => $article['created_at'],
+                'updated_at' => $article['updated_at']
+            ]);
+
+            $newArticles->push($object);
+        }
+
+        $articles = $newArticles->take(3);
 
         // Check if the bins can be used to recycle the item
         if($homeBins != []) {
@@ -69,7 +93,8 @@ class SearchResultController extends Controller
             'homeBins' => $homeBins,
             'recycleCentres' => $recycleCentres,
             'charities' => $charities,
-            'isRecyclable' => $isRecyclable ?? false
+            'isRecyclable' => $isRecyclable ?? false,
+            'articles' => $articles ?? []
         ]);
     }
 

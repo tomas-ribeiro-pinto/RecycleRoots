@@ -50,6 +50,11 @@
             <div class="col-span-full lg:col-span-3">
                 <div class="mt-4 px-6">
                     <h1 class="font-medium text-2xl underline underline-offset-8 decoration-4 decoration-r_orange">Related blog articles:</h1>
+                    <div class="flex-row pr-10 pt-5">
+                        @foreach($articles as $article)
+                            <x-blog-card :article="$article"/>
+                        @endforeach
+                    </div>
                 </div>
                 <div class="mt-4 overflow-y-auto grid-rows-1">
                 </div>

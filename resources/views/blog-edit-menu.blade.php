@@ -52,7 +52,7 @@
             </div>
             <div class="mt-4">
                 <label class="block text-sm font-medium leading-6 text-gray-900">Body<span class="text-red-500 sups">*</span></label>
-                <x-trix-field name="body" id="body" :value="$post->body"/>
+                <x-trix-field name="body" id="body" value="{!! $post->body->toTrixHtml() !!}"/>
                 @error('body')
                 <div class="error text-sm text-red-500 mt-1">{{ $message }}</div>
                 @enderror

@@ -29,6 +29,7 @@ Route::get('/recycle-point-map', [MapController::class, 'index'])->name('recycle
 Route::get('/search', [SearchResultController::class, 'index'])->name('item-search');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('article');
 
 Route::get('/about-us', function () {
     return view('blog');

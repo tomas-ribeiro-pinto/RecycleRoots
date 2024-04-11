@@ -1,6 +1,6 @@
 <div>
-    <div class="p-4 pb-0 grid grid-cols-6" x-data="{ filterEmpty: @entangle('filterEmpty')}">
-        <div class="flex col-start-6 rounded-md shadow-sm bg-gray-300">
+    <div class="p-4 pb-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6" x-data="{ filterEmpty: @entangle('filterEmpty')}">
+        <div class="flex col-start-2 sm:col-start-3 md:col-start-4 lg:col-start-6 rounded-md shadow-sm bg-gray-300">
             <input
                     wire:model.live="filter"
                     placeholder="Search for articles"
@@ -32,7 +32,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-r_green-200">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
                 </svg>
-                <span class="text-2xl font-medium text-r_green-200">No blog articles added yet</span>
+                <span class="text-2xl font-medium text-r_green-200">No blog articles found</span>
             </div>
         @endif
     </div>

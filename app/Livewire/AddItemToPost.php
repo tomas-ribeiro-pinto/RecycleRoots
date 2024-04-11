@@ -110,12 +110,10 @@ class AddItemToPost extends Component
 
         $this->modelItems->push($item);
         $this->clearSearch();
-        session()->flash('message', "Item Added!");
     }
 
     public function removeItem($id)
     {
         $this->modelItems = $this->modelItems->where('id', '!=', $id)->sortBy('name');
-        session()->flash('message', "Item Removed!");
     }
 }
