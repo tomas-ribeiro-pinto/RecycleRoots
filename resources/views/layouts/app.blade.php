@@ -23,6 +23,10 @@
         <x-banner />
 
         <div class="min-h-screen bg-gray-100">
+            @if(Session::has('message'))
+                <x-flash-message :message="session('message')"/>
+            @endif
+
             @include('navigation-menu')
 
             <!-- Page Heading -->

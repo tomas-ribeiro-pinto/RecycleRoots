@@ -1,6 +1,10 @@
 <div>
     <x-section-border />
 
+    <livewire:contacts-form></livewire:contacts-form>
+
+    <x-section-border />
+
     <!-- Manage Team Members -->
     <div class="mt-10 sm:mt-0" x-data="{ show: false }">
         <x-action-section>

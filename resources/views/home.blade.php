@@ -32,5 +32,9 @@
         <div class="mt-16">
             <x-blog-home-section :articles="$articles"/>
         </div>
+        <div class="p-10 bg-r_green-200 flex-row justify-center shadow-md">
+            <h1 class="font-medium text-white text-center text-2xl md:text-4xl mx-auto">Contact Us</h1>
+        </div>
+        <x-contact-form />
     </div>
 </x-app-layout>

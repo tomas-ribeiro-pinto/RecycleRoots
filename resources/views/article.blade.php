@@ -7,7 +7,7 @@
             {{$article->title}}
         </h1>
     </div>
-    <div class="md:pb-20 bg-white">
+    <div class="bg-white">
         <div class="grid grid-cols-8 gap-4">
             <article class="col-span-full md:col-span-5 lg:col-span-6 pl-10 pr-5 py-8">
                 <p>{!! $article->body !!}</p>

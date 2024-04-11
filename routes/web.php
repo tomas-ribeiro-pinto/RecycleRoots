@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MapController;
@@ -31,6 +32,5 @@ Route::get('/search', [SearchResultController::class, 'index'])->name('item-sear
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('article');
 
-Route::get('/about-us', function () {
-    return view('blog');
-})->name('about-us');
+Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
+Route::post('/about-us', [AboutUsController::class, 'contact'])->name('contact');
