@@ -9,25 +9,19 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ContactForm extends Mailable
+class ItemRequestGuidance extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $name;
-    public $email;
-    public $postcode;
-    public $r_subject;
-    public $message;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($name, $email, $postcode, $subject, $message)
+    public function __construct($name, $email, $postcode, $item, $message)
     {
         $this->name = $name;
         $this->email = $email;
         $this->postcode = $postcode;
-        $this->r_subject = $subject;
+        $this->item = $item;
         $this->message = $message;
     }
 
@@ -38,8 +32,8 @@ class ContactForm extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.contact-form',
-            ['name' => $this->name, 'email' => $this->email, 'postcode', 'r_subject' => $this->r_subject, 'message' => $this->message]
-        )->subject(__('New Contact Request!'));
+        return $this->markdown('emails.item-guidance-request',
+            ['name' => $this->name, 'email' => $this->email, 'postcode' => $this->postcode, 'item' => $this->item, 'message' => $this->message]
+        )->subject(__('New Item Guidance Request!'));
     }
 }

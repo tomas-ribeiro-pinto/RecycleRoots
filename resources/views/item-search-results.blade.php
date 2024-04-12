@@ -13,7 +13,9 @@
                             <h1 class="text-xl ml-2">Search for a new item</h1>
                         </x-slot>
                         <x-slot name="slot">
-                            <livewire:re-search-item :search="$search" :postcode="$postcode"/>
+                            <div class="z-50">
+                                <livewire:re-search-item :search="$search" :postcode="$postcode"/>
+                            </div>
                         </x-slot>
                     </x-app-card>
                 </div>
@@ -47,18 +49,20 @@
                     </x-slot>
                 </x-app-card>
             </div>
-            <div class="col-span-full lg:col-span-3">
-                <div class="mt-4 px-6">
-                    <h1 class="font-medium text-2xl underline underline-offset-8 decoration-4 decoration-r_orange">Related blog articles:</h1>
-                    <div class="flex-row pr-10 pt-5">
-                        @foreach($articles as $article)
-                            <x-blog-card :article="$article"/>
-                        @endforeach
+            @if(count($articles) > 0)
+                <div class="col-span-full lg:col-span-3">
+                    <div class="mt-4 px-6">
+                        <h1 class="font-medium text-2xl underline underline-offset-8 decoration-4 decoration-r_orange">Related blog articles:</h1>
+                        <div class="flex-row pr-10 pt-5">
+                            @foreach($articles as $article)
+                                <x-blog-card :article="$article"/>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="mt-4 overflow-y-auto grid-rows-1">
                     </div>
                 </div>
-                <div class="mt-4 overflow-y-auto grid-rows-1">
-                </div>
-            </div>
+            @endif
         </div>
         <x-app-card class="block md:hidden bg-r_white p-4 m-8 hover:shadow-md">
             <x-slot name="title">

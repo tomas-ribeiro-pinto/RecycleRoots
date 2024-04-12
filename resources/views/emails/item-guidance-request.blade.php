@@ -1,12 +1,12 @@
 @component('mail::message')
-{{ __('New contact request from:') }}
+{{ __('New item guidance request from:') }}
 {{ $name }} ({{ $email }})
 
 {{ __('Postcode:') }}
 {{ $postcode }}
 
-{{ __('Subject:') }}
-{{ $r_subject }}
+{{ __('Item:') }}
+{{ $item }}
 
 {{ __('Message:') }}
 {{ $message }}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ItemRequestGuidance;
 use App\Models\Bin;
 use App\Models\BinLocation;
 use App\Models\Post;
@@ -9,6 +10,7 @@ use App\Models\TeamPostcode;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 class SearchResultController extends Controller
@@ -96,6 +98,29 @@ class SearchResultController extends Controller
             'isRecyclable' => $isRecyclable ?? false,
             'articles' => $articles ?? []
         ]);
+    }
+
+    public function sendItemRequest(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:25',
+            'postcode' => 'required|max:10',
+            'email' => 'required|email|max:255',
+            'item' => 'required|string|max:255',
+            'message' => 'max:300',
+        ]);
+
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $postcode = $request->input('postcode');
+        $item = $request->input('item');
+        $message = $request->input('message') ?? 'N/A';
+
+        // Send email to the admin team owner
+        // TODO: Change this to the actual admin team owner, using email from environment variable for testing purposes
+        Mail::to(env('TEST_EMAIL'))->send(new ItemRequestGuidance($name, $email, $postcode, $item, $message));
+
+        return back()->with('message', 'Your request has been sent successfully!');
     }
 
     /**

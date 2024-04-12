@@ -32,7 +32,7 @@
                         @if(!empty($items) && $selectedItem == -1)
                             <div class="fixed top-0 right-0 bottom-0 left-0" wire:click="resetQuery"></div>
                             <div class="relative">
-                                <div class="absolute w-full xl:w-1/2 bg-white border border-gray-500 rounded-md p-1 shadow-lg">
+                                <div class="z-50 absolute w-full xl:w-1/2 bg-white border border-gray-500 rounded-md p-1 shadow-lg">
                                     <div class="block px-4 py-2 text-xs text-gray-400">
                                         {{ __('Select an item from the list:') }}
                                     </div>
