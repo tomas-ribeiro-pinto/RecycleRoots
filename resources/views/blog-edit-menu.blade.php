@@ -34,7 +34,7 @@
                         <x-app-form-text-input label="Title" name="title" :value="$post->title" :required="true"/>
                     </div>
                     <div class="col-span-full lg:col-span-1">
-                        <x-app-form-text-input label="Author" value="{{$post->user->name}}" :readonly="true" :disabled="true"/>
+                        <x-app-form-text-input label="Author" value="{{App\Models\User::withTrashed()->find($post->user_id)->name}}" :readonly="true" :disabled="true"/>
                     </div>
                     <div class="z-10 col-span-full lg:col-span-2">
                         <livewire:add-category-to-post post="{{$post->id}}"/>

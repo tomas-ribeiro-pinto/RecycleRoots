@@ -15,7 +15,7 @@
                     </svg>
                     <div class="flex gap-x-1.5">
                         <span class="font-bold">by</span>
-                        <span>{{$article->user->name}}</span>
+                        <span>{{App\Models\User::withTrashed()->find($article->user_id)->name}}</span>
                     </div>
                 </div>
             </div>

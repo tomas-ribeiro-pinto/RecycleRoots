@@ -28,6 +28,13 @@ class RemoveTeamMember implements RemovesTeamMembers
         TeamMemberRemoved::dispatch($team, $teamMember);
 
         Mail::to($teamMember->email)->send(new TeamRemovedUser($teamMember, $team));
+
+        // Set old email
+        $teamMember->old_email = $teamMember->email;
+        $teamMember->email = 'null' . $teamMember->id;
+        $teamMember->save();
+
+        // Soft Delete user
         (new DeleteUser(new DeleteTeam()))->delete($teamMember);
     }
 

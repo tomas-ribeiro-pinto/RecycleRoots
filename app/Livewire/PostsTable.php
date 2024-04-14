@@ -35,7 +35,7 @@ class PostsTable extends DataTableComponent
                 ->sortable(),
             Column::make("Author", "user_id")
                 ->format(
-                    fn($value, $row, Column $colum) => User::find($value)->name
+                    fn($value, $row, Column $colum) => User::withTrashed()->find($value)->name
                 )
                 ->collapseOnMobile(),
             Column::make("Published", "is_published")
