@@ -9,7 +9,7 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $articles = Post::all()->sortByDesc('updated_at');
+        $articles = Post::all()->sortByDesc('updated_at')->where('is_published', true);
 
         return view('blog', compact('articles'));
     }
