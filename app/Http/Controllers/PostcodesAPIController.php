@@ -34,6 +34,6 @@ class PostcodesAPIController extends Controller
             }
         }
 
-        return response()->json(['status' => 404, 'message' => 'Please enter a valid postcode.'], 404);
+        return response()->json(['status' => 422, 'message' => 'Please enter a valid postcode.'], 422);
     }
 }

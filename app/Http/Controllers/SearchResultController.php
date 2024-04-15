@@ -46,7 +46,7 @@ class SearchResultController extends Controller
             $charities = $response->response->charities ?? [];
             $articles = $response->response->articles ?? [];
         }
-        else if ($response->status == 404) {
+        else if ($response->status == 422) {
             return back()->dangerBanner('Please enter a valid postcode.');
         }
         else {

@@ -51,7 +51,7 @@ Route::get('/charities', function (Request $request) {
     $charities = Charity::all();
 
     if($item == null) {
-        return response()->json(['status' => 200, 'postcode' => null, 'response' => $charities], 200);
+        return response()->json(['status' => 200, 'item' => null, 'response' => $charities], 200);
     }
 
     // Filter the charities to only display those that accept the item
@@ -59,7 +59,7 @@ Route::get('/charities', function (Request $request) {
         return $charity->searchAcceptedItem($item);
     });
 
-    return response()->json(['status' => 200, 'response' => $charities], 200);
+    return response()->json(['status' => 200, 'item' => $item, 'response' => $charities], 200);
 });
 
 Route::get('/recycle-centres', function (Request $request) {
@@ -69,6 +69,14 @@ Route::get('/recycle-centres', function (Request $request) {
 
     // Get all recycle points
     $recyclePoints = RecyclePoint::all();
+
+    if ($item != null) {
+        $item = Item::where('name', $item)->first();
+        // Filter the recycle points to only display those that accept the item
+        $recyclePoints = $recyclePoints->filter(function($recyclePoint) use ($item) {
+            return $recyclePoint->items->contains($item);
+        });
+    }
 
     if($postcode == null) {
         return response()->json(['status' => 200, 'postcode' => null, 'response' => $recyclePoints], 200);
@@ -110,25 +118,21 @@ Route::get('/recycle-centres', function (Request $request) {
             'postcode' => $postcodeResponse->response, 'response' => $recyclePoints], 200);
     }
 
-    if ($item != null) {
-        $item = Item::where('name', $item)->first();
-        // Filter the recycle points to only display those that accept the item
-        $recyclePoints = $recyclePoints->filter(function($recyclePoint) use ($item) {
-            return $recyclePoint->items->contains($item);
-        });
-    }
-
     return response()->json(['status' => 200, 'postcode' => $postcodeResponse->response, 'response' => $recyclePoints], 200);
 });
 
 
 Route::get('/recycle', function (Request $request) {
 
+    if ($request->query('item') == null) {
+        return response()->json(['status' => 422, 'message' => 'Item parameter missing.'], 422);
+    }
+
     $item = Item::where('name', $request->query('item'))->first();
     $postcode = $request->query('postcode');
 
     if ($postcode == null) {
-        return response()->json(['status' => 404, 'message' => 'Please enter a valid postcode.'], 404);
+        return response()->json(['status' => 422, 'message' => 'Please enter a valid postcode.'], 422);
     }
 
     // Call Postcode.io API to fetch outcode of postcode search
