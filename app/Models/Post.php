@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\PostFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,11 @@ class Post extends Model
     protected $casts = [
         'body' => AsRichTextContent::class,
     ];
+
+    public static function factory()
+    {
+        return new PostFactory();
+    }
 
     public function categories()
     {

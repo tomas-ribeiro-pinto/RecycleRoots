@@ -14,7 +14,7 @@ use Illuminate\Database\Seeder;
 class PostcodesSeeder extends Seeder
 {
     /**
-     * Seed Items.
+     * Seed Postcodes.
      */
     public function run(): void
     {

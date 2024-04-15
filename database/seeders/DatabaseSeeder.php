@@ -201,6 +201,12 @@ class DatabaseSeeder extends Seeder
                 $binLocation->save();
             }
         }
+
+        $blogSeeder = new BlogSeeder();
+        $blogSeeder->run();
+
+        $charitySeeder = new CharitySeeder();
+        $charitySeeder->run();
     }
 
     public function findItem($name, $items)

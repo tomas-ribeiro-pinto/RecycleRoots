@@ -15,7 +15,7 @@ use Illuminate\Database\Seeder;
 class TemplatesSeeder extends Seeder
 {
     /**
-     * Seed Items.
+     * Seed Templates for Bin Location rules.
      */
     public function run(): void
     {
