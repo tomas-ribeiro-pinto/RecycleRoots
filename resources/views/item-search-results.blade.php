@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-8 gap-4 p-10 px-16">
+        <div class="grid grid-cols-8 gap-4 p-5 px-8 md:p-10 md:px-16">
             <div class="col-span-full lg:col-span-5">
                 <x-app-card class="bg-r_white">
                     <x-slot name="title">
@@ -51,9 +51,9 @@
             </div>
             @if(count($articles) > 0)
                 <div class="col-span-full lg:col-span-3">
-                    <div class="mt-4 px-6">
+                    <div class="mt-4 md:px-6">
                         <h1 class="font-medium text-2xl underline underline-offset-8 decoration-4 decoration-r_orange">Related blog articles:</h1>
-                        <div class="flex-row pr-10 pt-5">
+                        <div class="flex-row md:pr-10 pt-5">
                             @foreach($articles as $article)
                                 <x-blog-card :article="$article"/>
                             @endforeach

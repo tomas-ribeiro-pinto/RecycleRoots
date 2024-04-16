@@ -2,13 +2,13 @@
     <div class=" bg-cover bg-no-repeat max-h-screen bg-bottom"
         style="background-image: url({{ asset("images/home_pic.jpg") }})">
 
-        <div class="flex h-screen justify-center items-center mx-auto">
+        <div class="flex h-screen justify-center pt-20 md:pt-0 items-start md:items-center mx-auto">
             <x-search-bar />
         </div>
         <br>
 
     </div>
-    <div class="pt-10 justify-center items-center bg-r_green-100" style="margin-top: -17em;">
+    <div class="md:pt-10 justify-center items-center bg-r_green-100" style="margin-top: -17em;">
         <br>
         <div class="mt-10 lg:mt-0 grid grid-cols-2 gap-10 p-4 pt-10 max-w-5xl mx-auto">
             <x-app-card class="w-full mx-auto lg:w-full col-span-full md:col-span-1 bg-white max-w-6xl px-10 py-8">

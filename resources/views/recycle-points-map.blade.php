@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="pt-10 bg-r_green-100 flex">
-        <div class="ml-10 p-4 pb-8 rounded-2xl rounded-b-none bg-r_white">
-            <h1 class="font-medium text-lg md:text-2xl">Recycling Centres near <span class="underline underline-offset-8 decoration-4 decoration-r_orange">{{$search}}</span></h1>
+        <div class="ml-4 md:ml-10 p-4 pb-8 rounded-2xl rounded-b-none bg-r_white">
+            <h1 class="font-medium text-xl md:text-2xl">Recycling Centres near <span class="underline underline-offset-8 decoration-4 decoration-r_orange">{{$search}}</span></h1>
         </div>
     </div>
     <div class="min-h-screen bg-white">
@@ -22,13 +22,21 @@
                     </x-app-card>
                 </div>
                 <br>
-                <div class="mt-4 px-6">
+                <div class="mt-4 md:px-6">
                     <h1 class="font-medium text-2xl underline underline-offset-8 decoration-4 decoration-r_orange">Closest Recycling Centres:</h1>
                 </div>
                 <div class="mt-4 overflow-y-auto grid-rows-1">
                     @foreach($recyclePoints as $recyclePoint)
                         <x-map-result-entry :recyclePoint="$recyclePoint"/>
                     @endforeach
+                    @if(count($recyclePoints) == 0)
+                        <div class="col-span-full flex items-center py-5 px-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-r_green-200">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                            </svg>
+                            <span class="text-lg font-medium text-r_green-200">No recycling centres found at this location</span>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="col-span-full md:col-span-3 md:col-start-6 block xl:hidden">

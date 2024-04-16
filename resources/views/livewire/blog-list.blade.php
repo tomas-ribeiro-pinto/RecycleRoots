@@ -17,12 +17,12 @@
         </div>
     </div>
     @if(!$filterEmpty)
-        <div class="flex px-20">
+        <div class="flex px-10 md:px-20 mt-6 md:mt-0">
             <h2 class="font-medium text-xl underline underline-offset-8 decoration-4 decoration-r_orange">Showing results for:</h2>
             <p class="text-xl text-r_green-200 ml-2 my-auto">{{$filter}}</p>
         </div>
     @endif
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-4 md:p-10">
         @if(count($currentArticles) > 0)
             @foreach($pageArticles as $card)
                 <x-blog-card :article="$card"/>

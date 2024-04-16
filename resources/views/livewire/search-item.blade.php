@@ -54,7 +54,7 @@
                 <input type="text" name="postcode" id="postcode" class="block w-full border-0 text-black placeholder:text-gray-600 sm:text-md sm:leading-6 focus:border-gray-400 focus:ring-0" placeholder="Type your postcode" required>
             </div>
         </div>
-        <div class="mt-2 md:mt-4 lg:ml-3 lg:my-auto flex justify-end">
+        <div class="mt-4 lg:ml-3 lg:my-auto flex justify-end">
             <button type="submit" class="md:w-auto w-full px-4 py-2 text-xl text-white bg-r_green-200 rounded-2xl border-2 border-r_green-100 hover:bg-green-800">Search</button>
         </div>
     </div>

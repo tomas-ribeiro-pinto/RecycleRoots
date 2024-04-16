@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Bin;
 use App\Models\BinLocation;
+use App\Models\Contact;
 use App\Models\Item;
 use App\Models\ItemType;
 use App\Models\RecyclePoint;
@@ -207,6 +208,14 @@ class DatabaseSeeder extends Seeder
 
         $charitySeeder = new CharitySeeder();
         $charitySeeder->run();
+
+        // Add Contacts
+        Contact::create([
+            'email' => 'recycleroots@epinto.co.uk',
+            'telephone' => '0330 1232023',
+            'telephone_opening_hours' => 'Mon - Fri 9am - 5pm',
+            'address' => 'Queen Alexandra Rd, High Wycombe HP11 2JZ',
+        ]);
     }
 
     public function findItem($name, $items)
