@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </div>
-            <form method="POST" action="{{request()->fullUrl()}}/edit" enctype="multipart/form-data">
+            <form method="POST" action="{{route('recycle-centres') . '/' . $recyclePoint->id}}  '/edit" enctype="multipart/form-data">
                 @csrf
                 <div class="max-w-xl text-sm text-gray-600">
                     <p class="text-sm"><span class="text-r_orange sups">*</span> Required Field</p>

@@ -29,7 +29,7 @@
                     @foreach($recyclePoints as $recyclePoint)
                         <x-map-result-entry :recyclePoint="$recyclePoint"/>
                     @endforeach
-                    @if(count($recyclePoints) == 0)
+                    @if(count(json_decode(json_encode($recyclePoints), true)) == 0)
                         <div class="col-span-full flex items-center py-5 px-4">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-r_green-200">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
