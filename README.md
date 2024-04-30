@@ -4,7 +4,7 @@
 
 RecycleRoots is a web-based PHP Laravel application that aims to provide a simple, clear, and integrated information portal about the waste disposal facilities and processes of UK Local Authorities. Its purpose is to help boost recycling rates, reduce and reuse materials, and increase environmental education and sustainability awareness.
 
-This prototype is part of my dissertation project at Buckinghamshire New University, which discusses the challenges and barriers of recycling in the UK and ways to increase recycling outputs to achieve the national recycling target of recycling 65% of municipal waste by 2035. RecycleRoots is a proposed solution, inspired by [Recycle Now](https://www.recyclenow.com) to help reduce confusion between differnet collection and recycling rules across the UK. This versions is a prototype using data from Buckinghamshire Council.
+This prototype is part of my dissertation project at Buckinghamshire New University, which discusses the challenges and barriers of recycling in the UK and ways to increase recycling outputs to achieve the national recycling target of recycling 65% of municipal waste by 2035. RecycleRoots is a proposed solution, inspired by [Recycle Now](https://www.recyclenow.com) to help reduce confusion between different collection and recycling rules across the UK. This versions is a prototype using data from Buckinghamshire Council.
 
 ### Screenshots:
 ![Screenshot](https://github.com/tomas-ribeiro-pinto/RecycleRoots/blob/main/screenshots/home%20page.png)
