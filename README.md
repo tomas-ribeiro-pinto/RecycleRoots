@@ -21,7 +21,7 @@ This prototype is part of my dissertation project at Buckinghamshire New Univers
 * PHP Storm or any other IDE with Laravel installed: [https://laravel.com/docs/10.x/installation](https://laravel.com/docs/10.x/installation)
 * Laravel 10.13.5
 * MySQL 8.1
-* PHP 8.2
+* PHP 8.1
 * Server or local environment ready for deployment
 
 ### Executing program locally
